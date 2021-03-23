@@ -4,13 +4,15 @@
     <script src="e2k-k2e.js"> </script>
     <script>
       function main() {
-        m = document.getElementById("myTextarea").value
-        console.log(m)
+        m = document.getElementById("myTextarea").value;
+        console.log(m);
+        document.getElementById("output").value = m;
       }
     </script>
   </head>
   
   <body>
     <textarea id="myTextarea" autofocus placeholder="입력해보세요!" onchange="main();"></textarea><br>
+    <div id="output"></div>
   </body>
 </html>
