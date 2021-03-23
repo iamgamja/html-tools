@@ -6,14 +6,17 @@
     <script>
       function main() {
         m = document.getElementById("myTextarea").value;
-        console.log(m);
+//         console.log(m);
         document.getElementById("기본값").innerHTML = m;
         document.getElementById("글자수").innerHTML = m.length;
         document.getElementById("한영타").innerHTML = gksdud(m);
         document.getElementById("영한타").innerHTML = dudgks(m);
         document.getElementById("영한영타").innerHTML = gksdud(dudgks(m));
         document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
-        document.getElementById("MD5").innerHTML = CryptoJS.MD5(m); 
+        document.getElementById("MD5").innerHTML = CryptoJS.MD5(m);
+        if (CryptoJS.MD5(m)[0] == CryptoJS.MD5(m)[1]) {
+          console.log(m, CryptoJS.MD5(m))
+        }
       }
     </script>
   </head>
