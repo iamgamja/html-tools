@@ -6,8 +6,12 @@
       function main() {
         m = document.getElementById("myTextarea").value;
         console.log(m);
-        document.getElementById("gksdudxk").innerHTML = gksdud(m);
-        document.getElementById("dudgksxk").innerHTML = dudgks(m);
+        document.getElementById("기본값").innerHTML = m;
+        document.getElementById("글자수").innerHTML = m.length;
+        document.getElementById("한영타").innerHTML = gksdud(m);
+        document.getElementById("영한타").innerHTML = dudgks(m);
+        document.getElementById("영한영타").innerHTML = gksdud(dudgks(m));
+        document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
       }
     </script>
   </head>
@@ -18,12 +22,28 @@
     </form>
     <table border="1">
       <tr>
+        <td>기본값</td>
+        <td id="기본값"></td>
+      </tr>
+      <tr>
+        <td>글자수</td>
+        <td id="글자수"></td>
+      </tr>
+      <tr>
         <td>한영타</td>
-        <td id="gksdudxk"></td>
+        <td id="한영타"></td>
       </tr>
       <tr>
         <td>영한타</td>
-        <td id="dudgksxk"></td>
+        <td id="영한타"></td>
+      </tr>
+      <tr>
+        <td>영한영타</td>
+        <td id="영한영타"></td>
+      </tr>
+      <tr>
+        <td>한영한타</td>
+        <td id="gksdudgksxk"></td>
       </tr>
     </table>
   </body>
