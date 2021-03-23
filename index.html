@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ko">
   <head>
-    <script src="e2k-k2e.js"> </script>
+    <script src="e2k-k2e.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
       function main() {
         m = document.getElementById("myTextarea").value;
@@ -12,6 +13,7 @@
         document.getElementById("영한타").innerHTML = dudgks(m);
         document.getElementById("영한영타").innerHTML = gksdud(dudgks(m));
         document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
+        document.getElementById("MD5").innerHTML = CryptoJS.MD5(m); 
       }
     </script>
   </head>
@@ -44,6 +46,10 @@
       <tr>
         <td>한영한타</td>
         <td id="한영한타"></td>
+      </tr>
+      <tr>
+        <td>MD5</td>
+        <td id="MD5"></td>
       </tr>
     </table>
   </body>
