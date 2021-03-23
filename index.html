@@ -6,7 +6,8 @@
       function main() {
         m = document.getElementById("myTextarea").value;
         console.log(m);
-        document.getElementById("output").value = m;
+        document.getElementById("gksdudxk").innerHTML = gksdud(m);
+        document.getElementById("dudgksxk").innerHTML = dudgks(m);
       }
     </script>
   </head>
@@ -15,13 +16,14 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
-    <table>
+    <table border="1">
       <tr>
-        asdf
+        <td>한영타</td>
+        <td id="gksdudxk"></td>
       </tr>
       <tr>
-        <td>asdf</td>
-        <td>asdf</td>
+        <td>영한타</td>
+        <td id="dudgksxk"></td>
       </tr>
     </table>
   </body>
