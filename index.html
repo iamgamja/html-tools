@@ -41,6 +41,10 @@
       }
       
       function click_table() {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.target.innerHTML);
+        console.log(event.target.innerHTML.slice(5, -6));
         var s = event.target.innerHTML.slice(5, -6);
         console.log(s);
         document.getElementById("myTextarea").value = s
