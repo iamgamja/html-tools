@@ -40,13 +40,12 @@
         }
       }
       
-      table = document.getElementById("table");
       
-      table.addEventListener('click', function (e) {
-        console.log(this); // <button id="btn">Button</button>
-        console.log(e.currentTarget); // <button id="btn">Button</button>
+      function click_table(e) {
+        console.log(this);
+        console.log(e.currentTarget);
         console.log(e.target);
-      });
+      }
       
 //       function checkTarget(event) {
 //         var ele = event.target;
@@ -78,7 +77,7 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onkeydown="shift_check();"></textarea><br>
     </form>
-    <table id="table" border="1">
+    <table id="table" border="1" onclick="click_table();">
       <tr>
         <td>기본값</td>
         <td id="기본값"></td>
