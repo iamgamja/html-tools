@@ -40,6 +40,12 @@
         }
       }
       
+      function checkTarget(event) {
+        var ele = event.target;
+        console.log(ele);
+        console.log(ele.value);
+      }
+      
       function main() {
         m = document.getElementById("myTextarea").value;
         function set_table(table_id, value) {
@@ -64,7 +70,7 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onkeydown="shift_check();"></textarea><br>
     </form>
-    <table border="1">
+    <table border="1" onclick="checkTarget();>
       <tr>
         <td>기본값</td>
         <td id="기본값"></td>
