@@ -65,6 +65,9 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
         set_table("마지막글자", m.slice(-1));
+        
+        document.getElementById("iframe1").src = "https://translate.google.com/?sl=auto&tl=ko&text=" + m + "&op=translate&hl=ko"
+        document.getElementById("iframe2").src = "https://translate.google.com/?sl=auto&tl=en&text=" + m + "&op=translate&hl=ko"
       }
     </script>
   </head>
@@ -120,5 +123,7 @@
         <td id="마지막글자_"></td>
       </tr>
     </table>
+    <iframe id="iframe1" src=""></iframe> <br>
+    <iframe id="iframe2" src=""></iframe>
   </body>
 </html>
