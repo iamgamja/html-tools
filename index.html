@@ -6,27 +6,30 @@
     <script>
       check_md5 = 2;
       function md5(m) {
-        return CryptoJS.MD5(m).toString()
-      }
-      function main() {
-        m = document.getElementById("myTextarea").value;
-//         console.log(m);
-        document.getElementById("기본값").innerHTML = m;
-        document.getElementById("글자수").innerHTML = m.length;
-        document.getElementById("한영타").innerHTML = gksdud(m);
-        document.getElementById("영한타").innerHTML = dudgks(m);
-        document.getElementById("영한영타").innerHTML = gksdud(dudgks(m));
-        document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
-        document.getElementById("MD5").innerHTML = md5(m);
-        document.getElementById("반대로").innerHTML = m.split("").reverse().join("");
-        if (md5(m).startsWith(md5(m)[0].repeat(check_md5))) {
-          console.log(m)
-          console.log(md5(m))
-          console.log(md5(m)[0])
-          console.log(check_md5)
-          console.log(md5(m)[0].repeat(check_md5))
+        f = CryptoJS.MD5(m).toString()
+        if (f.startsWith(f[0].repeat(check_md5))) {
+          console.log(m, f)
           check_md5++;
         }
+        return f
+      }
+      
+      function main() {
+        m = document.getElementById("myTextarea").value;
+        function set_table(table_id, value) {
+          document.getElementById(table_id).innerHTML = value;
+          document.getElementById(table_id+'_').innerHTML = value;
+        }
+        
+        set_table("기본값", m);
+        set_table("글자수", m.length);
+        set_table("한영타", gksdud(m));
+        set_table("영한타", dudgks(m));
+        set_table("영한영타", gksdud(dudgks(m)));
+        set_table("한영한타", dudgks(gksdud(m)));
+        set_table("반대로", m.split("").reverse().join(""));
+        set_table("첫번째글자", m[0]);
+        set_table("마지막글자", m.slice(-1));
       }
     </script>
   </head>
@@ -39,34 +42,47 @@
       <tr>
         <td>기본값</td>
         <td id="기본값"></td>
+        <td id="기본값_"></td>
       </tr>
       <tr>
         <td>글자수</td>
-        <td id="글자수">0</td>
+        <td id="글자수"></td>
+        <td id="글자수_"></td>
       </tr>
       <tr>
         <td>한영타</td>
         <td id="한영타"></td>
+        <td id="한영타_"></td>
       </tr>
       <tr>
         <td>영한타</td>
         <td id="영한타"></td>
+        <td id="영한타_"></td>
       </tr>
       <tr>
         <td>영한영타</td>
         <td id="영한영타"></td>
+        <td id="영한영타_"></td>
       </tr>
       <tr>
         <td>한영한타</td>
         <td id="한영한타"></td>
-      </tr>
-      <tr>
-        <td>MD5</td>
-        <td id="MD5"></td>
+        <td id="한영한타_"></td>
       </tr>
       <tr>
         <td>반대로</td>
         <td id="반대로"></td>
+        <td id="반대로_"></td>
+      </tr>
+      <tr>
+        <td>첫번째글자</td>
+        <td id="첫번째글자"></td>
+        <td id="첫번째글자_"></td>
+      </tr>
+      <tr>
+        <td>마지막글자</td>
+        <td id="마지막글자"></td>
+        <td id="마지막글자_"></td>
       </tr>
     </table>
   </body>
