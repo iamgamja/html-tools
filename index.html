@@ -41,7 +41,8 @@
       }
       
       function click_table() {
-        var s = event.target.innerHTML.slice(4, -6);
+        var s = event.target.innerHTML.slice(5, -6);
+        console.log(s);
         document.getElementById("myTextarea").value = s
         main();
       }
