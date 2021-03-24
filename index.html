@@ -40,11 +40,19 @@
         }
       }
       
-      function checkTarget(event) {
-        var ele = event.target;
-        console.log(ele);
-        console.log(ele.value);
-      }
+      table = document.getElementById("table");
+      
+      table.addEventListener('click', function (e) {
+        console.log(this); // <button id="btn">Button</button>
+        console.log(e.currentTarget); // <button id="btn">Button</button>
+        console.log(e.target);
+      });
+      
+//       function checkTarget(event) {
+//         var ele = event.target;
+//         console.log(ele);
+//         console.log(ele.value);
+//       }
       
       function main() {
         m = document.getElementById("myTextarea").value;
@@ -70,7 +78,7 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onkeydown="shift_check();"></textarea><br>
     </form>
-    <table border="1" onclick="checkTarget();">
+    <table id="table" border="1">
       <tr>
         <td>기본값</td>
         <td id="기본값"></td>
