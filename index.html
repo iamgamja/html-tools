@@ -19,7 +19,7 @@
         document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
         document.getElementById("MD5").innerHTML = md5(m);
         document.getElementById("반대로").innerHTML = m.split("").reverse().join("");
-        if (md5(m).startsWith(md5(m)[0]*2)) {
+        if (md5(m).startsWith(md5(m)[0].repeat(i))) {
           console.log(m, md5(m));
           i++;
         }
