@@ -18,17 +18,17 @@
         m = document.getElementById("myTextarea").value;
         function set_table(table_id, value) {
           document.getElementById(table_id).innerHTML = value;
-          document.getElementById(table_id+'_').innerHTML = value;
+          document.getElementById(table_id+'_').innerHTML = md5(value);
         }
         
         set_table("기본값", m);
-        set_table("글자수", m.length);
+        set_table("글자수", m.length !== 0 ? m.length : "");
         set_table("한영타", gksdud(m));
         set_table("영한타", dudgks(m));
         set_table("영한영타", gksdud(dudgks(m)));
         set_table("한영한타", dudgks(gksdud(m)));
         set_table("반대로", m.split("").reverse().join(""));
-        set_table("첫번째글자", m[0]);
+        set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
         set_table("마지막글자", m.slice(-1));
       }
     </script>
