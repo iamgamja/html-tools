@@ -40,18 +40,11 @@
         }
       }
       
-      
       function click_table(e) {
-        console.log(this);
-        console.log(e.currentTarget);
-        console.log(e.target);
+        var ele = event.target;
+        console.log(ele);
+        console.log(ele.value);
       }
-      
-//       function checkTarget(event) {
-//         var ele = event.target;
-//         console.log(ele);
-//         console.log(ele.value);
-//       }
       
       function main() {
         m = document.getElementById("myTextarea").value;
