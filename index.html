@@ -6,6 +6,7 @@
     <script>
       check_md5 = 2;
       function md5(m) {
+        m = m.toString()
         f = CryptoJS.MD5(m).toString()
         if (f.startsWith(f[0].repeat(check_md5))) {
           console.log(m, f)
