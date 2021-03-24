@@ -4,6 +4,7 @@
     <script src="e2k-k2e.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
+      i = 2;
       function md5(m) {
         return CryptoJS.MD5(m).toString()
       }
@@ -18,8 +19,9 @@
         document.getElementById("한영한타").innerHTML = dudgks(gksdud(m));
         document.getElementById("MD5").innerHTML = md5(m);
         document.getElementById("반대로").innerHTML = m.split("").reverse().join("");
-        if (md5(m)[0] == md5(m)[1]) {
-          console.log(m, md5(m))
+        if (md5(m).startsWith(md5(m)[0]*2)) {
+          console.log(m, md5(m));
+          i++;
         }
       }
     </script>
