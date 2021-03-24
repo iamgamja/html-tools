@@ -41,7 +41,7 @@
       }
       
       function click_table() {
-        var s = event.target.innerHTML;
+        var s = event.target.innerHTML.slice(4, -6);
         document.getElementById("myTextarea").value = s
         main();
       }
@@ -49,8 +49,8 @@
       function main() {
         m = document.getElementById("myTextarea").value;
         function set_table(table_id, value) {
-          document.getElementById(table_id).innerHTML = value;
-          document.getElementById(table_id+'_').innerHTML = md5(value);
+          document.getElementById(table_id).innerHTML = '<pre>' + value + </pre>;
+          document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
         }
         
         set_table("기본값", m);
