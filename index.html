@@ -40,9 +40,10 @@
         }
       }
       
-      function click_table(e) {
-        var ele = event.target;
-        console.log(ele.innerHTML);
+      function click_table() {
+        var s = event.target.innerHTML;
+//         console.log(s);
+        document.getElementById("myTextarea").value = s
       }
       
       function main() {
