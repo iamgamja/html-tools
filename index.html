@@ -4,6 +4,8 @@
     <script src="e2k-k2e.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
+//       chr(Math.round(Math.random()*0x110000))
+      mac = false;
       check_md5 = 2;
       function md5(m) {
         m = m.toString()
@@ -13,6 +15,29 @@
           check_md5++;
         }
         return f
+      }
+      
+      function chr(n) {
+        return String.fromCharCode(n)
+      }
+      function ord(s) {
+        return s.charCodeAt(0)
+      }
+      
+      function onki() {
+        if (event.keyCode == 16) { // 쉬프트 눌림
+          if (shift === true) { // 연속이라면 매크로 실행
+            mac = !mac;
+            shift = false;
+          } else {
+            shift = true;
+          }
+        } else {
+          shift = false;
+        }
+        if (mac) {
+          document.getElementById("myTextarea").value += chr(Math.round(Math.random()*0x110000)); // 랜덤한 유니코드 문자를 더한다.
+        }
       }
       
       function main() {
@@ -37,7 +62,7 @@
   
   <body>
     <form>
-      <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
+      <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onkeydown="shift_check();"></textarea><br>
     </form>
     <table border="1">
       <tr>
