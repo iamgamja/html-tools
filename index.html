@@ -31,8 +31,9 @@
       function get(id) {
         return JSON.parse(localStorage.getItem(id))
       }
-      function reset_special_md5() {
+      function reset_specials() {
         special_md5 = false;
+        special_sha256 = false;
         location.reload();
       }
       
@@ -43,6 +44,7 @@
           special_md5[i.toString()] = {}
         }
         special_md5["mirror"] = {}
+        set("special_md5", special_md5)
       }
       
       special_sha256 = get("special_sha256")
@@ -52,6 +54,7 @@
           special_sha256[i.toString()] = {}
         }
         special_sha256["mirror"] = {}
+        set("special_sha256", special_sha256)
       }
       
       function md5(m) {
