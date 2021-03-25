@@ -32,8 +32,8 @@
         return JSON.parse(localStorage.getItem(id))
       }
       function reset_specials() {
-        special_md5 = false;
-        special_sha256 = false;
+        set("special_md5", false);
+        set("special_sha256", false);
         location.reload();
       }
       
