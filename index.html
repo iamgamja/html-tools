@@ -149,6 +149,8 @@
         s = event.target.innerHTML;
         if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
           s = s.slice(5, -6)
+        } else if (s.startsWith("<!-- ")) {
+          s = s.slice(5, s.indexOf(" -->"))
         }
         document.getElementById("myTextarea").value = s
         main();
