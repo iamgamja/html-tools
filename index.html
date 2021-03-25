@@ -155,7 +155,7 @@
       
       function see_spoiler() {
         ele = event.target;
-        if ele.id.endsWith("_") { // 해시값이라면
+        if (ele.id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
           s = s.slice(4, s.indexOf(" -->"));
           ele.innerHTML = s
