@@ -29,6 +29,10 @@
       function get(id) {
         return JSON.parse(localStorage.getItem(id))
       }
+      function reset_special_md5() {
+        special_md5 = false;
+        location.reload();
+      }
       
       special_md5 = get("special_md5")
       if (!special_md5) {
@@ -47,7 +51,7 @@
           "14": {},
           "15": {},
           "16": {}
-        } // 
+        }
       }
       
       function md5(m) {
@@ -73,7 +77,6 @@
             set("special_md5", special_md5); // 저장
           }
         }
-          
         return f
       }
 
