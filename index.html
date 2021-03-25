@@ -117,9 +117,11 @@
       }
 
       function set_table(table_id, value) {
-        document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
-        document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
-        document.getElementById(table_id+'__').innerHTML = '<pre>' + sha256(value) + '</pre>';
+        document.getElementById(table_id).innerHTML = `<pre>${value}</pre>`;
+//         document.getElementById(table_id+'_').innerHTML = `<pre>${md5(value)}</pre>`;
+//         document.getElementById(table_id+'__').innerHTML = `<pre>${sha256(value)}</pre>`;
+        document.getElementById(table_id+'_').innerHTML = `<-- ${md5(value)} --><pre>${md5(value).slice(0, 2)}...${md5(value).slice(-2)}</pre>`;
+        document.getElementById(table_id+'__').innerHTML = `<-- ${sha256(value)} --><pre>${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}</pre>`;
       }
 
       shift = false;
@@ -150,6 +152,14 @@
         document.getElementById("myTextarea").value = s
         main();
       }
+      
+      function see_spoiler() {
+        ele = event.target;
+        if ele.id.endsWith("_") { // 해시값이라면
+          s = ele.innerHTML;
+          s = s.slice(4, s.indexOf(" -->"));
+          ele.innerHTML = s
+        }
 
       function main() {
         m = document.getElementById("myTextarea").value;
@@ -167,7 +177,7 @@
     </script>
   </head>
   
-  <body id="body" onkeydown="shift_check();" onload="body_load();">
+  <body id="body" onkeydown="shift_check();" onload="body_load();" onmouseover="see_spoiler();">
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
