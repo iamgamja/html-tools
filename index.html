@@ -12,7 +12,7 @@
 <!--     math.js -->
     <script src="https://unpkg.com/mathjs@9.3.0/lib/browser/math.js"></script>
     
-    <script>
+    <script>      
       function body_load() {
         table = document.getElementById("table");
         table_html = ""
@@ -22,14 +22,32 @@
         }
         table.innerHTML = table_html
       }
-        
-      check_md5 = 2;
+      
+      function set(id, value) {
+        return localStorage.setItem(id, JSON.stringify(value))
+      }
+      function get(id) {
+        return JSON.parse(localStorage.getItem(id))
+      }
+      
+      special_md5 = get("special_md5")
+      
       function md5(m) {
         m = m.toString()
         f = CryptoJS.MD5(m).toString()
-        if (f.startsWith(f[0].repeat(check_md5))) {
-          console.log(m, f)
-          check_md5++;
+        
+        for (i=2; i<=16; i++) {
+          if (!(f.startsWith(f[0].repeat(i)))) {
+            break
+          }
+        }
+        same_number = i-1
+        if (same_number !== 1) { // 앞자리 일부가 겹칠때만
+          if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
+            console.log(`%c새로운 문자를 발견했습니다${"!".toString().repeat(same_number)} \n${m}: \n${f}`, "background:lime;color:green;"); // 알려주고
+            special_md5[same_number.toString()][m] = f; // json에 추가
+            set("special_md5", special_md5); // 저장
+          }
         }
         return f
       }
