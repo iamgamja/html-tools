@@ -147,10 +147,11 @@
       function click_table() {
         if (event.target.id === "table") return
         s = event.target.innerHTML;
+        alert(s)
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"))
         } else if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
-          s = s.slice(5, -6) + "(2)"
+          s = s.slice(5, -6)
         }
         document.getElementById("myTextarea").value = s
         main();
