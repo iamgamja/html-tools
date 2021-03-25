@@ -9,7 +9,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython.js" integrity="sha256-rA89wPrTJJQFWJaZveKW8jpdmC3t5F9rRkPyBjz8G04=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
 <!--     math.js -->
-<!--     <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script> -->
     <script src="https://unpkg.com/mathjs@9.3.0/lib/browser/math.js"></script>
     
     <script>
@@ -39,9 +38,9 @@
       function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift === true) { // 연속 2번 눌렸다면
-//             조금 위험한 것들 실행(번역)
-//             set_table("기본값", m);
-//             아직 구현하지 않음
+            // 조금 위험한 것들 실행(계산)
+            set_table("계산값", math.evaluate(m));
+            
             shift = false;
           } else {
             shift = true;
@@ -72,7 +71,6 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
         set_table("마지막글자", m.slice(-1));
-        set_table("계산값", math.evaluate(m));
         
         document.getElementById("iframe1").src = "https://translate.google.com/?sl=auto&tl=ko&text=" + m + "&op=translate&hl=ko"
         document.getElementById("iframe2").src = "https://translate.google.com/?sl=auto&tl=en&text=" + m + "&op=translate&hl=ko"
