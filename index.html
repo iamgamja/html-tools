@@ -13,7 +13,6 @@
     
     <script>
       function body_load() {
-        
         table = document.getElementById("table");
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
@@ -21,71 +20,72 @@
           table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"></td></tr>`
         }
         table.innerHTML = table_html
+      }
         
-        check_md5 = 2;
-        function md5(m) {
-          m = m.toString()
-          f = CryptoJS.MD5(m).toString()
-          if (f.startsWith(f[0].repeat(check_md5))) {
-            console.log(m, f)
-            check_md5++;
-          }
-          return f
+      check_md5 = 2;
+      function md5(m) {
+        m = m.toString()
+        f = CryptoJS.MD5(m).toString()
+        if (f.startsWith(f[0].repeat(check_md5))) {
+          console.log(m, f)
+          check_md5++;
         }
+        return f
+      }
 
-        function chr(n) {
-          return String.fromCharCode(n)
-        }
-        function ord(s) {
-          return s.charCodeAt(0)
-        }
+      function chr(n) {
+        return String.fromCharCode(n)
+      }
+      function ord(s) {
+        return s.charCodeAt(0)
+      }
 
-        function set_table(table_id, value) {
-          document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
-          document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
-        }
+      function set_table(table_id, value) {
+        document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
+        document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
+      }
 
-        function shift_check() {
-          if (event.keyCode == 16) { // 쉬프트 눌림
-            if (shift === true) { // 연속 2번 눌렸다면
-              // 조금 위험한 것들 실행(계산)
-              try {
-                set_table("계산값", math.evaluate(m));
-              } catch(e) {
-                set_table("계산값", e);
-              }
-
-              shift = false;
-            } else {
-              shift = true;
+      shift = false;
+      function shift_check() {
+        if (event.keyCode == 16) { // 쉬프트 눌림
+          if (shift === true) { // 연속 2번 눌렸다면
+            // 조금 위험한 것들 실행(계산)
+            try {
+              set_table("계산값", math.evaluate(m));
+            } catch(e) {
+              set_table("계산값", e);
             }
-          } else {
+
             shift = false;
+          } else {
+            shift = true;
           }
+        } else {
+          shift = false;
         }
+      }
 
-        function click_table() {
-          var s = event.target.innerHTML;
-          if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
-            s = s.slice(5, -6)
-          }
-          document.getElementById("myTextarea").value = s
-          main();
+      function click_table() {
+        var s = event.target.innerHTML;
+        if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
+          s = s.slice(5, -6)
         }
+        document.getElementById("myTextarea").value = s
+        main();
+      }
 
-        function main() {
-          m = document.getElementById("myTextarea").value;
+      function main() {
+        m = document.getElementById("myTextarea").value;
 
-          set_table("기본값", m);
-          set_table("글자수", m.length !== 0 ? m.length : "");
-          set_table("한영타", gksdud(m));
-          set_table("영한타", dudgks(m));
-          set_table("영한영타", gksdud(dudgks(m)));
-          set_table("한영한타", dudgks(gksdud(m)));
-          set_table("반대로", m.split("").reverse().join(""));
-          set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
-          set_table("마지막글자", m.slice(-1));
-        }
+        set_table("기본값", m);
+        set_table("글자수", m.length !== 0 ? m.length : "");
+        set_table("한영타", gksdud(m));
+        set_table("영한타", dudgks(m));
+        set_table("영한영타", gksdud(dudgks(m)));
+        set_table("한영한타", dudgks(gksdud(m)));
+        set_table("반대로", m.split("").reverse().join(""));
+        set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
+        set_table("마지막글자", m.slice(-1));
       }
     </script>
   </head>
