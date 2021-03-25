@@ -157,8 +157,8 @@
         ele = event.target;
         if (ele.id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
-          s = s.slice(4, s.indexOf(" -->"));
-          ele.innerHTML = s
+          s = s.slice(5, s.indexOf(" -->"));
+          ele.innerHTML = `<per>${s}</per>`
         }
       }
 
