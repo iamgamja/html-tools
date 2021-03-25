@@ -1,11 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="ko">
   <head>
+    // 한영타, 영한타
     <script src="e2k-k2e.js"></script>
+    // md5
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    // brython
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython.js" integrity="sha256-rA89wPrTJJQFWJaZveKW8jpdmC3t5F9rRkPyBjz8G04=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
+    // math.js
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+    
     <script>
-//       chr(Math.round(Math.random()*0x110000))
-      mac = false;
       check_md5 = 2;
       function md5(m) {
         m = m.toString()
@@ -24,19 +30,23 @@
         return s.charCodeAt(0)
       }
       
+      function set_table(table_id, value) {
+        document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
+        document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
+      }
+      
       function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
-          if (shift === true) { // 연속이라면 매크로 실행
-            mac = !mac;
+          if (shift === true) { // 연속 2번 눌렸다면
+//             조금 위험한 것들 실행(번역)
+//             set_table("기본값", m);
+//             아직 구현하지 않음
             shift = false;
           } else {
             shift = true;
           }
         } else {
           shift = false;
-        }
-        if (mac) {
-          document.getElementById("myTextarea").value += chr(Math.round(Math.random()*0x110000)); // 랜덤한 유니코드 문자를 더한다.
         }
       }
       
@@ -51,10 +61,6 @@
       
       function main() {
         m = document.getElementById("myTextarea").value;
-        function set_table(table_id, value) {
-          document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
-          document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
-        }
         
         set_table("기본값", m);
         set_table("글자수", m.length !== 0 ? m.length : "");
@@ -65,6 +71,7 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째글자", m[0] !== undefined ? m[0] : "");
         set_table("마지막글자", m.slice(-1));
+        set_table("계산값", math.evaluate(m));
         
         document.getElementById("iframe1").src = "https://translate.google.com/?sl=auto&tl=ko&text=" + m + "&op=translate&hl=ko"
         document.getElementById("iframe2").src = "https://translate.google.com/?sl=auto&tl=en&text=" + m + "&op=translate&hl=ko"
@@ -121,6 +128,11 @@
         <td>마지막글자</td>
         <td id="마지막글자"></td>
         <td id="마지막글자_"></td>
+      </tr>
+      <tr>
+        <td>계산값</td>
+        <td id="계산값"></td>
+        <td id="계산값_"></td>
       </tr>
     </table>
     <iframe id="iframe1" src=""></iframe> <br>
