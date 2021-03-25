@@ -163,7 +163,7 @@
         if (ele.id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
           s = s.slice(5, s.indexOf(" -->"));
-          ele.innerHTML = `<per>${s}</per>`
+          ele.innerHTML = `<pre>${s}</pre>`
         }
       }
 
