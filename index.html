@@ -39,7 +39,13 @@
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift === true) { // 연속 2번 눌렸다면
             // 조금 위험한 것들 실행(계산)
-            set_table("계산값", math.evaluate(m));
+            try {
+              result = math.evaluate(m);
+            } catch(e) {
+              result = `error! ${e}`
+            } finally {
+              set_table("계산값", result);
+            }
             
             shift = false;
           } else {
