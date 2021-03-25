@@ -19,6 +19,7 @@
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
           table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"></td></tr>`
+        }
         table.innerHTML = table_html
         
         check_md5 = 2;
