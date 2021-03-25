@@ -147,7 +147,6 @@
       function click_table() {
         if (event.target.id === "table") return
         s = event.target.innerHTML;
-        alert(s); alert(event.target)
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"))
         } else if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
@@ -159,7 +158,6 @@
       
       function see_spoiler() {
         ele = event.target;
-        console.log(1, ele);
         if (ele.id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
           s = s.slice(5, s.indexOf(" -->"));
