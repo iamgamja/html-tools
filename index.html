@@ -33,8 +33,7 @@
       special_md5 = get("special_md5")
       if (!special_md5) {
         special_md5 = {
-          "2": {},
-          "3": {},
+          "mirror": {},
           "4": {},
           "5": {},
           "6": {},
@@ -61,13 +60,20 @@
           }
         }
         same_number = i-1
-        if (same_number !== 1) { // 앞자리 일부가 겹칠때만
+        if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다${"!".toString().repeat(same_number)} \n${m}: \n${f}`, "background:lime;color:green;"); // 알려주고
+            console.log(`%c새로운 문자를 발견했습니다! (앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_md5[same_number.toString()][m] = f; // json에 추가
             set("special_md5", special_md5); // 저장
           }
+        } else if (f.split("").reverse().join("") === f) { // 뒤집어도 같다면
+          if (!(m in special_md5["mirror"])) { // 새로운 문자라면
+            console.log(`%c새로운 문자를 발견했습니다! (뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            special_md5["mirror"][m] = f; // json에 추가
+            set("special_md5", special_md5); // 저장
+          }
         }
+          
         return f
       }
 
