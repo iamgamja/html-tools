@@ -145,7 +145,8 @@
       }
 
       function click_table() {
-        var s = event.target.innerHTML;
+        if (event.target.id === "table") return
+        s = event.target.innerHTML;
         if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
           s = s.slice(5, -6)
         }
