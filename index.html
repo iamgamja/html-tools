@@ -147,7 +147,7 @@
       function click_table() {
         if (event.target.id === "table") return
         s = event.target.innerHTML;
-        alert(s)
+        alert(s); alert(event.target)
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"))
         } else if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
