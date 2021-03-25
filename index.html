@@ -6,6 +6,8 @@
     <script src="e2k-k2e.js"></script>
 <!--     md5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<!--     SHA256 -->
+    <script src="SHA256.js"></script>
 <!--     brython -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython.js" integrity="sha256-rA89wPrTJJQFWJaZveKW8jpdmC3t5F9rRkPyBjz8G04=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
@@ -18,7 +20,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"></td></tr>`
+          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"></td><td id="${i}__"></td></tr>`
         }
         table.innerHTML = table_html
       }
@@ -36,22 +38,20 @@
       
       special_md5 = get("special_md5")
       if (!special_md5) {
-        special_md5 = {
-          "mirror": {},
-          "4": {},
-          "5": {},
-          "6": {},
-          "7": {},
-          "8": {},
-          "9": {},
-          "10": {},
-          "11": {},
-          "12": {},
-          "13": {},
-          "14": {},
-          "15": {},
-          "16": {}
+        special_md5 = {}
+        for (i=3; i<=16; i++) {
+          special_md5[i.toString()] = {}
         }
+        special_md5["mirror"] = {}
+      }
+      
+      special_sha256 = get("special_sha256")
+      if (!special_sha256) {
+        special_sha256 = {}
+        for (i=3; i<=64; i++) {
+          special_sha256[i.toString()] = {}
+        }
+        special_sha256["mirror"] = {}
       }
       
       function md5(m) {
@@ -79,6 +79,32 @@
         }
         return f
       }
+      
+      function sha256(m) {
+        m = m.toString()
+        f = SHA256(m)
+        
+        for (i=2; i<=64; i++) {
+          if (!(f.startsWith(f[0].repeat(i)))) {
+            break
+          }
+        }
+        same_number = i-1
+        if (same_number > 3) { // 앞자리 일부가 겹치면
+          if (!(m in special_sha256[same_number.toString()])) { // 새로운 문자라면
+            console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            special_sha256[same_number.toString()][m] = f; // json에 추가
+            set("special_sha256", special_sha256); // 저장
+          }
+        } else if (f.split("").reverse().join("") === f) { // 뒤집어도 같다면
+          if (!(m in special_sha256["mirror"])) { // 새로운 문자라면
+            console.log(`%c새로운 문자를 발견했습니다! (sha256 뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            special_sha256["mirror"][m] = f; // json에 추가
+            set("special_sha256", special_sha256); // 저장
+          }
+        }
+        return f
+      }
 
       function chr(n) {
         return String.fromCharCode(n)
@@ -90,6 +116,7 @@
       function set_table(table_id, value) {
         document.getElementById(table_id).innerHTML = '<pre>' + value + '</pre>';
         document.getElementById(table_id+'_').innerHTML = '<pre>' + md5(value) + '</pre>';
+        document.getElementById(table_id+'__').innerHTML = '<pre>' + sha256(value) + '</pre>';
       }
 
       shift = false;
