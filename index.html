@@ -120,8 +120,8 @@
         document.getElementById(table_id).innerHTML = `<pre>${value}</pre>`;
 //         document.getElementById(table_id+'_').innerHTML = `<pre>${md5(value)}</pre>`;
 //         document.getElementById(table_id+'__').innerHTML = `<pre>${sha256(value)}</pre>`;
-        document.getElementById(table_id+'_').innerHTML = `<-- ${md5(value)} --><pre>${md5(value).slice(0, 2)}...${md5(value).slice(-2)}</pre>`;
-        document.getElementById(table_id+'__').innerHTML = `<-- ${sha256(value)} --><pre>${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}</pre>`;
+        document.getElementById(table_id+'_').innerHTML = `<!-- ${md5(value)} --><pre>${md5(value).slice(0, 2)}...${md5(value).slice(-2)}</pre>`;
+        document.getElementById(table_id+'__').innerHTML = `<!-- ${sha256(value)} --><pre>${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}</pre>`;
       }
 
       shift = false;
