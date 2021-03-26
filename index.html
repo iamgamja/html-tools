@@ -22,6 +22,7 @@
     <script>      
       function body_load() {
         table = document.getElementById("table");
+	table.width = screen.availWidth;
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
