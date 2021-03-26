@@ -8,7 +8,7 @@
       pre {
         padding: 0 2px;
       }
-    </style> 버전:1
+    </style> 버전:2
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -25,7 +25,7 @@
     <script>      
       function body_load() {
         table = document.getElementById("table");
-	table.width = screen.availWidth - 5;
+	table.width = screen.availWidth - 10;
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
@@ -155,6 +155,8 @@
 
       function click_table() {
         s = event.target.innerHTML;
+        alert(event.target)
+        alert(event.target.width)
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"));
         } else if (s.startsWith('<pre onclick="click_table();">') && s.endsWith("</pre>")) {
