@@ -180,6 +180,18 @@
           }
         }
       }
+      
+      function all_spoiler() {
+        trs = document.getElementById("table").childNodes[0].childNodes; // tr 여러개
+        for (tr of trs) {
+          tds = tr.childNodes; // td 2개
+          for (td of tds) {
+            if (td.id.endsWith("_")) {
+              set_not_see_spoiler(td);
+            }
+          }
+        }
+      }
 
       function main() {
         m = document.getElementById("myTextarea").value;
@@ -201,6 +213,6 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
-    <table id="table" border="1"> </table>
+    <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
   </body>
 </html>
