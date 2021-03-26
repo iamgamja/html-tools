@@ -158,7 +158,7 @@
       
       function see_spoiler() {
         ele = event.target;
-        if (ele.id.endsWith("_")) { // 해시값이라면
+        if (ele.id.endsWith("_") || ele.parent().id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
           ele.innerHTML = `<pre>${s.slice(5, s.indexOf(" -->"))}</pre>`
         }
@@ -166,7 +166,7 @@
       
       function not_see_spoiler() {
         ele = event.target;
-        if (ele.id.endsWith("_")) { // 해시값이라면
+        if (ele.id.endsWith("_") || ele.parent().id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
           ele.innerHTML = `<!-- ${s.slice(5, -6)} --><pre>${s.slice(5, 7)}...${s.slice(-8)}</pre>`
         }
