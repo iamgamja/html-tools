@@ -28,6 +28,8 @@
           table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
+        
+        console.log("전부 로드되었습니다.")
       }
       
       function set(id, value) {
