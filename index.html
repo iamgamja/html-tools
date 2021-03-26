@@ -165,10 +165,13 @@
       
       function see_spoiler() {
         set_see_spoiler(event.currentTarget);
-        children_of_table = document.getElementById("table").childNodes;
-        for (ele of children_of_table) {
-          if (ele.id.endsWith("_") && ele !== event.currentTarget) {
-            set_not_see_spoiler(ele);
+        trs = document.getElementById("table").childNodes[0].childNodes; // tr 여러개
+        for (tr of trs) {
+          tds = tr.childNodes; // td 2개
+          for (td of tds) {
+            if (td.id.endsWith("_") && td !== event.currentTarget) {
+              set_not_see_spoiler(ele);
+            }
           }
         }
       }
