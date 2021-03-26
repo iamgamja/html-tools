@@ -12,7 +12,7 @@
         word-break: break-all;
         table-layout: fixed;
       }
-    </style> 버전:10
+    </style> 버전:11
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -173,7 +173,7 @@
       }
       
       function set_see_spoiler(ele) {
-        s = ele  ; alert(s);alert(s.childNodes);alert(s.childNosed[0]);alert(s.childNosed[0].innerHTMl)
+        s = ele  ; alert(s);alert(s.childNodes);alert(s.childNodes[0]);alert(s.childNodes[0].innerHTMl)
         c1 = s.childNodes[0].innerHTML // 주석 내용
         c2 = s.innerHTML.slice(s.innerHTML.indexOf("-->")+3) // 주석을 제외한 모든 내용
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
