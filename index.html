@@ -157,15 +157,11 @@
       }
       
       function see_spoiler() {
-        console.log(this)
-        console.log(event.currentTarget)
-        this.innerHTML = `<pre>${this.innerHTML.slice(5, this.innerHTML.indexOf(" -->"))}</pre>`
+        event.currentTarget.innerHTML = `<pre>${event.currentTarget.innerHTML.slice(5, event.currentTarget.innerHTML.indexOf(" -->"))}</pre>`
       }
       
       function not_see_spoiler() {
-        console.log(this)
-        console.log(event.currentTarget)
-        this.innerHTML = `<!-- ${this.innerHTML.slice(5, -6)} --><pre>${this.innerHTML.slice(5, 7)}...${this.innerHTML.slice(-8)}</pre>`
+        event.currentTarget.innerHTML = `<!-- ${event.currentTarget.innerHTML.slice(5, -6)} --><pre>${event.currentTarget.innerHTML.slice(5, 7)}...${event.currentTarget.innerHTML.slice(-8)}</pre>`
       }
 
       function main() {
