@@ -10,7 +10,7 @@
         word-break: break-all;
         table-layout: fixed;
       }
-    </style> 버전:7
+    </style> 버전:8
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -35,8 +35,7 @@
         }
         table.innerHTML = table_html
 
-        tds = table.childNodes[0][0];
-        tds[0].style.width = "10%";
+        document.getElementById("기본값").style.width = "10%";
         
         console.log("전부 로드되었습니다.")
       }
