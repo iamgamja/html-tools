@@ -25,7 +25,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}"></td><td id="${i}_" onmouseover="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseover="see_spoiler();" onclick="click_table();"></td></tr>`
+          table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseover="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseover="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
       }
@@ -163,7 +163,9 @@
       }
       function set_not_see_spoiler(ele) {
         if (ele.innerHTML.startsWith("<!-- ")) return // 이미 가려져 있으면 통과
+        console.log(ele.innerHTML)
         ele.innerHTML = `<!-- ${ele.innerHTML.slice(30, -6)} --><pre onclick="click_table();">${ele.innerHTML.slice(30, 32)}...${ele.innerHTML.slice(-8)}</pre>`
+        console.log(ele.innerHTML)
       }
       
       function see_spoiler() {
