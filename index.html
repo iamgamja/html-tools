@@ -20,7 +20,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"></td><td id="${i}__"></td></tr>`
+          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"  onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td><td id="${i}__"  onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td></tr>`
         }
         table.innerHTML = table_html
       }
@@ -157,19 +157,11 @@
       }
       
       function see_spoiler() {
-        ele = event.target;
-        if (ele.id.endsWith("_") || ele.parentNode.id.endsWith("_")) { // 해시값이라면
-          s = ele.innerHTML;
-          ele.innerHTML = `<pre>${s.slice(5, s.indexOf(" -->"))}</pre>`
-        }
+        this.innerHTML = `<pre>${this.innerHTML.slice(5, this.innerHTML.indexOf(" -->"))}</pre>`
       }
       
       function not_see_spoiler() {
-        ele = event.target;
-        if (ele.id.endsWith("_") || ele.parentNode.id.endsWith("_")) { // 해시값이라면
-          s = ele.innerHTML;
-          ele.innerHTML = `<!-- ${s.slice(5, -6)} --><pre>${s.slice(5, 7)}...${s.slice(-8)}</pre>`
-        }
+        this.innerHTML = `<!-- ${this.innerHTML.slice(5, -6)} --><pre>${this.innerHTML.slice(5, 7)}...${this.innerHTML.slice(-8)}</pre>`
       }
 
       function main() {
@@ -192,6 +184,6 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
-    <table id="table" border="1" onclick="click_table(event);" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"> </table>
+    <table id="table" border="1" onclick="click_table(event);"> </table>
   </body>
 </html>
