@@ -148,20 +148,33 @@
         if (event.target.id === "table") return
         s = event.target.innerHTML;
         if (s.startsWith("<!-- ")) {
-          s = s.slice(5, s.indexOf(" -->"))
+          s = s.slice(5, s.indexOf(" -->"));
         } else if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
-          s = s.slice(5, -6)
+          s = s.slice(5, -6);
         }
         document.getElementById("myTextarea").value = s
         main();
       }
       
+      function set_see_spoiler(ele) {
+        ele.innerHTML = `<pre>${ele.innerHTML.slice(5, ele.innerHTML.indexOf(" -->"))}</pre>`
+      }
+      function set_not_see_spoiler(ele) {
+        ele.innerHTML = `<!-- ${ele.innerHTML.slice(5, -6)} --><pre>${ele.innerHTML.slice(5, 7)}...${ele.innerHTML.slice(-8)}</pre>`
+      }
+      
       function see_spoiler() {
-        event.currentTarget.innerHTML = `<pre>${event.currentTarget.innerHTML.slice(5, event.currentTarget.innerHTML.indexOf(" -->"))}</pre>`
+        set_see_spoiler(event.currentTarget);
+        children_of_table = document.getElementById("table").childNodes;
+        for (ele of children_of_table) {
+          if (ele.id.endsWith("_") && ele !== event.currentTarget) {
+            set_not_see_spoiler(ele);
+          }
+        }
       }
       
       function not_see_spoiler() {
-        event.currentTarget.innerHTML = `<!-- ${event.currentTarget.innerHTML.slice(5, -6)} --><pre>${event.currentTarget.innerHTML.slice(5, 7)}...${event.currentTarget.innerHTML.slice(-8)}</pre>`
+        set_not_see_spoiler(event.currentTarget);
       }
 
       function main() {
