@@ -175,14 +175,14 @@
       function set_see_spoiler(ele) {
         s = ele
         c1 = s.childNodes[0].innerHTML // 주석 내용
-        c2 = s.innerHTML.slice(s.indexOf("-->")+3) // 주석을 제외한 모든 내용
+        c2 = s.innerHTML.slice(s.innerHTML.indexOf("-->")+3) // 주석을 제외한 모든 내용
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
         s = ele
         c1 = s.childNodes[0].innerHTML // 주석 내용
-        c2 = s.innerHTML.slice(s.indexOf("-->")+3) // 주석을 제외한 모든 내용
+        c2 = s.innerHTML.slice(s.innerHTML.indexOf("-->")+3) // 주석을 제외한 모든 내용
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
