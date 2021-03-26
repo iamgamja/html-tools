@@ -122,11 +122,9 @@
       }
 
       function set_table(table_id, value) {
-        document.getElementById(table_id).innerHTML = `<pre>${value}</pre>`;
-//         document.getElementById(table_id+'_').innerHTML = `<pre>${md5(value)}</pre>`;
-//         document.getElementById(table_id+'__').innerHTML = `<pre>${sha256(value)}</pre>`;
-        document.getElementById(table_id+'_').innerHTML = `<!-- ${md5(value)} --><pre>${md5(value).slice(0, 2)}...${md5(value).slice(-2)}</pre>`;
-        document.getElementById(table_id+'__').innerHTML = `<!-- ${sha256(value)} --><pre>${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}</pre>`;
+        document.getElementById(table_id).innerHTML = `<pre onclick="click_table();">${value}</pre>`;
+        document.getElementById(table_id+'_').innerHTML = `<!-- ${md5(value)} --><pre onclick="click_table();">${md5(value).slice(0, 2)}...${md5(value).slice(-2)}</pre>`;
+        document.getElementById(table_id+'__').innerHTML = `<!-- ${sha256(value)} --><pre onclick="click_table();">${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}</pre>`;
       }
 
       shift = false;
@@ -153,19 +151,19 @@
         s = event.target.innerHTML;
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"));
-        } else if (s.startsWith("<pre>") && s.endsWith("</pre>")) {
-          s = s.slice(5, -6);
+        } else if (s.startsWith('<pre onclick="click_table();">') && s.endsWith("</pre>")) {
+          s = s.slice(30, -6);
         }
         document.getElementById("myTextarea").value = s
         main();
       }
       
       function set_see_spoiler(ele) {
-        ele.innerHTML = `<pre>${ele.innerHTML.slice(5, ele.innerHTML.indexOf(" -->"))}</pre>`
+        ele.innerHTML = `<pre onclick="click_table();">${ele.innerHTML.slice(5, ele.innerHTML.indexOf(" -->"))}</pre>`
       }
       function set_not_see_spoiler(ele) {
-        if (ele.innerHTML.startsWith("<!-- ")) return // 이미 가려져 있으면 
-        ele.innerHTML = `<!-- ${ele.innerHTML.slice(5, -6)} --><pre>${ele.innerHTML.slice(5, 7)}...${ele.innerHTML.slice(-8)}</pre>`
+        if (ele.innerHTML.startsWith("<!-- ")) return // 이미 가려져 있으면 통과
+        ele.innerHTML = `<!-- ${ele.innerHTML.slice(30, -6)} --><pre onclick="click_table();">${ele.innerHTML.slice(30, 32)}...${ele.innerHTML.slice(-8)}</pre>`
       }
       
       function see_spoiler() {
