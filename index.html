@@ -25,7 +25,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseover="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseover="see_spoiler();" onclick="click_table();"></td></tr>`
+          table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
       }
