@@ -20,7 +20,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td><td id="${i}__" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td></tr>`
+          table_html += `<tr><td onclick="click_table();">${i}</td><td id="${i}"></td><td id="${i}_" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
       }
@@ -145,7 +145,6 @@
       }
 
       function click_table() {
-        if (event.target.id === "table") return
         s = event.target.innerHTML;
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"));
@@ -201,6 +200,6 @@
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
-    <table id="table" border="1" onclick="click_table(event);"> </table>
+    <table id="table" border="1"> </table>
   </body>
 </html>
