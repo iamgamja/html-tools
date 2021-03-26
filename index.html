@@ -20,7 +20,7 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째글자", "마지막글자", "계산값"]
         for (i of table_items) {
-          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_"  onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td><td id="${i}__"  onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td></tr>`
+          table_html += `<tr><td>${i}</td><td id="${i}"></td><td id="${i}_" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td><td id="${i}__" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"></td></tr>`
         }
         table.innerHTML = table_html
       }
@@ -157,10 +157,14 @@
       }
       
       function see_spoiler() {
+        console.log(this)
+        console.log(event.currentTarget)
         this.innerHTML = `<pre>${this.innerHTML.slice(5, this.innerHTML.indexOf(" -->"))}</pre>`
       }
       
       function not_see_spoiler() {
+        console.log(this)
+        console.log(event.currentTarget)
         this.innerHTML = `<!-- ${this.innerHTML.slice(5, -6)} --><pre>${this.innerHTML.slice(5, 7)}...${this.innerHTML.slice(-8)}</pre>`
       }
 
