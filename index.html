@@ -163,9 +163,8 @@
       }
       function set_not_see_spoiler(ele) {
         if (ele.innerHTML.startsWith("<!-- ")) return // 이미 가려져 있으면 통과
-        console.log(ele.innerHTML)
-        ele.innerHTML = `<!-- ${ele.innerHTML.slice(30, -6)} --><pre onclick="click_table();">${ele.innerHTML.slice(30, 32)}...${ele.innerHTML.slice(-8)}</pre>`
-        console.log(ele.innerHTML)
+        hash = ele.id.endsWith("__") ? ele.innerHTML.slice(-70, -6) : ele.innerHTML.slice(-22, -6)
+        ele.innerHTML = `<!-- ${hash} --><pre onclick="click_table();">${hash.slice(0, 3)}...${hash.slice(-2)}</pre>`
       }
       
       function see_spoiler() {
