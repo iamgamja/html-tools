@@ -160,6 +160,7 @@
         ele.innerHTML = `<pre>${ele.innerHTML.slice(5, ele.innerHTML.indexOf(" -->"))}</pre>`
       }
       function set_not_see_spoiler(ele) {
+        if (ele.innerHTML.startsWith("<!-- ")) return // 이미 가려져 있으면 
         ele.innerHTML = `<!-- ${ele.innerHTML.slice(5, -6)} --><pre>${ele.innerHTML.slice(5, 7)}...${ele.innerHTML.slice(-8)}</pre>`
       }
       
