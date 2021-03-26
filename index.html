@@ -160,8 +160,15 @@
         ele = event.target;
         if (ele.id.endsWith("_")) { // 해시값이라면
           s = ele.innerHTML;
-          s = s.slice(5, s.indexOf(" -->"));
-          ele.innerHTML = `<pre>${s}</pre>`
+          ele.innerHTML = `<pre>${s.slice(5, s.indexOf(" -->"))}</pre>`
+        }
+      }
+      
+      function not_see_spoiler() {
+        ele = event.target;
+        if (ele.id.endsWith("_")) { // 해시값이라면
+          s = ele.innerHTML;
+          ele.innerHTML = `<!-- ${s.slice(5, -6)} --><pre>${s.slice(5, 7)}...${s.slice(-8)}</pre>`
         }
       }
 
@@ -181,10 +188,10 @@
     </script>
   </head>
   
-  <body id="body" onkeydown="shift_check();" onload="body_load();" onmouseover="see_spoiler();">
+  <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
     </form>
-    <table id="table" border="1" onclick="click_table(event);"> </table>
+    <table id="table" border="1" onclick="click_table(event);" onmouseover="see_spoiler();" onmouseout="not_see_spoiler();"> </table>
   </body>
 </html>
