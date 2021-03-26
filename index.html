@@ -8,7 +8,7 @@
       pre {
         padding: 0 2px;
       }
-    </style> 버전:2
+    </style> 버전:3
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -156,7 +156,7 @@
       function click_table() {
         s = event.target.innerHTML;
         alert(event.target)
-        alert(event.target.width)
+        alert(event.target.offsetWidth)
         if (s.startsWith("<!-- ")) {
           s = s.slice(5, s.indexOf(" -->"));
         } else if (s.startsWith('<pre onclick="click_table();">') && s.endsWith("</pre>")) {
