@@ -170,7 +170,7 @@
           tds = tr.childNodes; // td 2개
           for (td of tds) {
             if (td.id.endsWith("_") && td !== event.currentTarget) {
-              set_not_see_spoiler(ele);
+              set_not_see_spoiler(td);
             }
           }
         }
