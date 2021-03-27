@@ -174,7 +174,7 @@
       
       function set_see_spoiler(ele) {
         s = ele  ; alert(s);alert(s.childNodes);alert(s.childNodes[0]);alert(s.childNodes[0].nodeValue)
-        c1 = s.childNodes[0].nodeValue ; alert(c1); alert(typeof(c1)// 주석 내용
+        c1 = s.childNodes[0].nodeValue ; alert(c1); alert(typeof(c1))// 주석 내용
         c2 = s.innerHTML.slice(s.innerHTML.indexOf("-->")+3) // 주석을 제외한 모든 내용
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
