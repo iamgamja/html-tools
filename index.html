@@ -12,7 +12,7 @@
         word-break: break-all;
         table-layout: fixed;
       }
-    </style> 버전:13
+    </style> 버전:13.1
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -165,7 +165,7 @@
           document.getElementById("myTextarea").value = s
         } else {
           c1 = s.childNodes[0].innerHTML // 주석 내용
-          c2 = s.innerHTML.slice(s.indexOf("-->")+3) // 주석을 제외한 모든 내용
+          c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
           final_c = c1.length > c2.length ? c1 : c2
           document.getElementById("myTextarea").value = final_c
         }
