@@ -9,7 +9,7 @@
         white-space: pre-line;
         font-family: monospace;
       }
-    </style> 버전:2021-03-28 2:06 13.5
+    </style> 버전:2021-03-28 2:21 13.6
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -26,7 +26,11 @@
     <script>      
       function body_load() {
         table = document.getElementById("table");
-        table.width = screen.availWidth - 20;
+        
+        window.onresize = function() {
+          table.width = window.outerWidth - 20;
+        }
+        
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째", "마지막", "계산값"]
         for (i of table_items) {
@@ -157,31 +161,34 @@
           shift = false;
         }
       }
-
+      
+      function get_c1(ele) {
+        return ele.childNodes[0].nodeValue // 주석 내용
+      }
+      function get_c2(ele) {
+        return s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
+      }
+      
       function click_table() {
-        s = event.target
-        if (!s.id.endsWith("_")) {
-          document.getElementById("myTextarea").value = s
+        if (!event.target.id.endsWith("_")) {
+          document.getElementById("myTextarea").value = event.target.innerHTML;
         } else {
-          c1 = s.childNodes[0].nodeValue // 주석 내용
-          c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
-          final_c = c1.length > c2.length ? c1 : c2
-          document.getElementById("myTextarea").value = final_c
+          c1 = get_c1(event.target)
+          c2 = get_c2(event.target)
+          document.getElementById("myTextarea").value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
         }
         main();
       }
       
       function set_see_spoiler(ele) {
-        s = ele
-        c1 = s.childNodes[0].nodeValue // 주석 내용
-        c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
+        c1 = get_c1(ele)
+        c2 = get_c2(ele)
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
-        s = ele
-        c1 = s.childNodes[0].nodeValue // 주석 내용
-        c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
+        c1 = get_c1(ele)
+        c2 = get_s2(ele)
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
