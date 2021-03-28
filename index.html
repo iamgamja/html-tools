@@ -9,7 +9,7 @@
         white-space: pre-line;
         font-family: monospace;
       }
-    </style> 버전:2021-03-28 2:33 13.7
+    </style> 버전:2021-03-28 2:33 13.8
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -188,7 +188,7 @@
       }
       function set_not_see_spoiler(ele) {
         c1 = get_c1(ele)
-        c2 = get_s2(ele)
+        c2 = get_c2(ele)
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
