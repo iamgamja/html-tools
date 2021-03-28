@@ -164,7 +164,7 @@
         if (!s.id.endsWith("_")) {
           document.getElementById("myTextarea").value = s
         } else {
-          c1 = s.childNodes[0].innerHTML // 주석 내용
+          c1 = s.childNodes[0].nodeValue // 주석 내용
           c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
           final_c = c1.length > c2.length ? c1 : c2
           document.getElementById("myTextarea").value = final_c
@@ -187,7 +187,7 @@
         console.log(2, s);
         c1 = s.childNodes[0].nodeValue // 주석 내용
         console.log(2, c1);
-        c2 = s.childNodes[0].nodeValue // 주석을 제외한 모든 내용
+        c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
         console.log(2, c2);
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
