@@ -4,15 +4,12 @@
     <style>
       td {
         cursor: pointer;
-/*         word-break: break-all; */
       }
       table {
-/*         font-size: 50%; */
         white-space: pre-line;
         font-family: monospace;
-/*         table-layout: fixed; */
       }
-    </style> 버전:2021-03-28 2:00 13.4
+    </style> 버전:2021-03-28 2:06 13.5
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -29,15 +26,17 @@
     <script>      
       function body_load() {
         table = document.getElementById("table");
-	table.width = screen.availWidth - 20;
+        table.width = screen.availWidth - 20;
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째", "마지막", "계산값"]
         for (i of table_items) {
           table_html += `<tr><td id="${i}${i}" onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
-
+        
         document.getElementById("기본값기본값").style.width = "10%";
+        
+        main();
         
         console.log("전부 로드되었습니다.")
       }
@@ -174,21 +173,15 @@
       
       function set_see_spoiler(ele) {
         s = ele
-        console.log(1, s);
         c1 = s.childNodes[0].nodeValue // 주석 내용
-        console.log(1, c1);
         c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
-        console.log(1, c2);
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
         s = ele
-        console.log(2, s);
         c1 = s.childNodes[0].nodeValue // 주석 내용
-        console.log(2, c1);
         c2 = s.childNodes[1].nodeValue // 주석을 제외한 모든 내용
-        console.log(2, c2);
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
@@ -219,7 +212,7 @@
       }
 
       function main() {
-        m = document.getElementById("myTextarea").value;
+        m = document.getElementById("myTextarea").value || "";
 
         set_table("기본값", m);
         set_table("글자수", m.length !== 0 ? m.length : "");
