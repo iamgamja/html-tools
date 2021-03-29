@@ -10,7 +10,7 @@
         white-space: pre-line;
         word-break: break-all;
       }
-    </style> 버전:2021-03-29 11:48 14.8
+    </style> 버전:2021-03-29 12:29 14.9
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -23,6 +23,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
 <!--     math.js -->
     <script src="https://unpkg.com/mathjs@9.3.0/lib/browser/math.js"></script>
+<!--     제이쿼리 -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     
     <script>      
       function body_load() {
@@ -47,6 +49,15 @@
         
         console.log("전부 로드되었습니다.")
       }
+      
+      $(document).bind("contextmenu", function(event) { 
+        event.preventDefault();
+        $("<div class='custom-menu' style='font-family:monospace;background-color:orange;border-width:2px;border-color:white'>asdf</div>")
+          .appendTo("body")
+          .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
+      }).bind("click", function(event) {
+        $("div.custom-menu").hide();
+      });
       
       function set(id, value) {
         return localStorage.setItem(id, JSON.stringify(value))
