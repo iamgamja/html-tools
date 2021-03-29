@@ -10,7 +10,7 @@
         white-space: pre-line;
         word-break: break-all;
       }
-    </style> 버전:2021-03-29 9:55 14.3
+    </style> 버전:2021-03-29 10:24 14.4
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -29,7 +29,7 @@
         table = document.getElementById("table");
         
         window.onresize = function() {
-          table.width = window.outerWidth - 8;
+          table.style.width = `${document.getElementsByTagName("body")[0].offsetWidth}px`
         }
         
         table_html = ""
@@ -92,13 +92,13 @@
         same_number = i-1
         if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            console.log(`%c새로운 문자를 발견했습니다! (md5 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_md5[same_number.toString()][m] = f; // json에 추가
             set("special_md5", special_md5); // 저장
           }
         } else if (f.split("").reverse().join("") === f) { // 뒤집어도 같다면
           if (!(m in special_md5["mirror"])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            console.log(`%c새로운 문자를 발견했습니다! (md5 뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_md5["mirror"][m] = f; // json에 추가
             set("special_md5", special_md5); // 저장
           }
