@@ -58,8 +58,8 @@
         console.log("전부 로드되었습니다.")
       }
       
-      $(document).bind("contextmenu", function(event) {
-        event.preventDefault();
+      $(document).not("td").bind("contextmenu", function(event) {
+        reventDefault();
       });
       
       $("td").bind("contextmenu", function(event) { 
