@@ -10,7 +10,7 @@
         white-space: pre-line;
         word-break: break-all;
       }
-    </style> 버전:2021-03-28 3:37 14.2
+    </style> 버전:2021-03-29 9:55 14.3
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -39,9 +39,9 @@
         }
         table.innerHTML = table_html
         
-        document.getElementById("기본값기본값").style.width = "46px";
-        document.getElementById("기본값_").style.width = "53px"; // 228
-        document.getElementById("기본값__").style.width = "53px"; // 452
+        document.getElementById("기본값기본값").style.width = "42px";
+        document.getElementById("기본값_").style.width = "49px"; // 224
+        document.getElementById("기본값__").style.width = "49px"; // 448
         
         main();
         
@@ -208,11 +208,11 @@
           }
         }
         if (!event.currentTarget.id.endsWith("__")) { // md5
-          document.getElementById("기본값_").style.width = "228px";
-          document.getElementById("기본값__").style.width = "53px";
+          document.getElementById("기본값_").style.width = "224px";
+          document.getElementById("기본값__").style.width = "49px";
         } else { // sha256
-          document.getElementById("기본값__").style.width = "452px";
-          document.getElementById("기본값_").style.width = "53px";
+          document.getElementById("기본값__").style.width = "448px";
+          document.getElementById("기본값_").style.width = "49px";
         }
       }
       
