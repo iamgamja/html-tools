@@ -58,17 +58,17 @@
         console.log("전부 로드되었습니다.")
       }
       
+      $(document).bind("contextmenu", function(event) {
+        event.preventDefault();
+      });
+      
       $("td").bind("contextmenu", function(event) { 
         event.preventDefault();
         $(`<div class='custom-menu'>${event.currenttarget.childNodes[1].nodeValue}</div>`)
           .appendTo("#contentMenuDiv")
           .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
       }).bind("click", function(event) {
-        $("contentMenuDiv").empty();
-      });
-      
-      $(document).bind("contextmenu", function(event) {
-        event.preventDefault();
+        $("#contentMenuDiv").empty();
       });
       
       function set(id, value) {
