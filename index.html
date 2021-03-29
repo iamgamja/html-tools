@@ -10,6 +10,14 @@
         white-space: pre-line;
         word-break: break-all;
       }
+      .custom-menu {
+        z-index: 100;
+        position: absolute;
+        background-color: orange;
+        border: 2px solid white;
+        padding: 2px;
+        font-family: monospace;
+      }
     </style> 버전:2021-03-29 12:29 14.9
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
@@ -52,7 +60,7 @@
       
       $(document).bind("contextmenu", function(event) { 
         event.preventDefault();
-        $("<div class='custom-menu' style='font-family:monospace;background-color:orange;border-width:2px;border-color:white'>asdf</div>")
+        $("<div class='custom-menu'>asdf</div>")
           .appendTo("body")
           .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
       }).bind("click", function(event) {
