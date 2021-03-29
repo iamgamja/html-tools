@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 1:51 15.04
+    </style> 버전:2021-03-29 2:09 15.05
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -56,27 +56,25 @@
         main();
         
         console.log("javaScript가 전부 로드되었습니다.");
+        
+        $(function() {
+          $(document).not("td").bind("contextmenu", function(event) {
+            event.preventDefault();
+          });
+
+          $("td").bind("contextmenu", function(event) {
+            event.preventDefault();
+            $(`<div class='custom-menu'>${event.currentTarget.childNodes[1].nodeValue}</div>`)
+              .appendTo("#contentMenuDiv")
+              .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
+          }).bind("click", function(event) {
+            $("#contentMenuDiv").empty();
+          });
+
+          console.log("jQuery가 전부 로드되었습니다.");
+
+        });
       }
-      
-      
-      
-      $(function() {
-        $(document).not("td").bind("contextmenu", function(event) {
-          event.preventDefault();
-        });
-        
-        $("td").bind("contextmenu", function(event) {
-          event.preventDefault();
-          $(`<div class='custom-menu'>${event.currentTarget.childNodes[1].nodeValue}</div>`)
-            .appendTo("#contentMenuDiv")
-            .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
-        }).bind("click", function(event) {
-          $("#contentMenuDiv").empty();
-        });
-        
-        console.log("jQuery가 전부 로드되었습니다.");
-        
-      });
       
       function set(id, value) {
         return localStorage.setItem(id, JSON.stringify(value))
