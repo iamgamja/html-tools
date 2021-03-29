@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 2:45 15.11
+    </style> 버전:2021-03-29 3:23 15.12
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -65,7 +65,7 @@
           function right_click_event(event) {
             event.preventDefault();
             find_text = event.currentTarget.childNodes[1] !== undefined ? event.currentTarget.childNodes[1].nodeValue : event.currentTarget.childNodes[0].nodeValue;
-            $(`<div class='custom-menu'>${find_text}</div>`)
+            $(`<div class='custom-menu'>${$("#isSha256").val() ? sha256(find_text) : md5(find_text)}</div>`)
               .appendTo("#contentMenuDiv")
               .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
               .bind("contextmenu", right_click_event);
@@ -278,7 +278,8 @@
   
   <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
-      <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea><br>
+      <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
+      <input id="isSha256" type="checkbox"> sha256? <br>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
