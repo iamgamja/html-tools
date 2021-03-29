@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 1:45 15.02
+    </style> 버전:2021-03-29 1:51 15.03
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -62,7 +62,8 @@
 //         event.preventDefault();
 //       });
       
-      $("td").bind("contextmenu", function(event) { 
+      $("td").bind("contextmenu", function(event) {
+        console.log(1)
         event.preventDefault();
         $(`<div class='custom-menu'>${event.currenttarget.childNodes[1].nodeValue}</div>`)
           .appendTo("#contentMenuDiv")
