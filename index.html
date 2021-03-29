@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 3:58 15.15
+    </style> 버전:2021-03-29 3:58 15.17
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -66,9 +66,9 @@
             document.getElementById("myTextarea").value = event.currentTarget.childNodes[0].nodeValue;
             $(".custom-menu").remove();
             main();
-          })
+          });
           
-          $("*").not("td, .custom-menu").bind("contextmenu"), function(event) {
+          $("*").not("td, .custom-menu").bind("contextmenu", function(event) {
             event.preventDefault();
           });
 
@@ -80,7 +80,12 @@
               .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
               .bind("contextmenu", right_click_event);
           }
+          
           $("td, .custom-menu").bind("contextmenu", right_click_event);
+          
+          $("*").bind("touchstart", function(event) {
+            event.preventDefault()
+          }
 
           console.log("jQuery가 전부 로드되었습니다.");
 
