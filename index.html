@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 12:29 14.9
+    </style> 버전:2021-03-29 12:56 15.00
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -60,11 +60,11 @@
       
       $(document).bind("contextmenu", function(event) { 
         event.preventDefault();
-        $("<div class='custom-menu'>asdf</div>")
-          .appendTo("body")
+        $(`<div class='custom-menu'>${event.target.innerHTML || event.target.nodeValue || "None"}</div>`)
+          .appendTo("#contentMenuDiv")
           .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
       }).bind("click", function(event) {
-        $("div.custom-menu").hide();
+        $("contentMenuDiv").empty();
       });
       
       function set(id, value) {
@@ -253,13 +253,13 @@
         m = document.getElementById("myTextarea").value || "";
 
         set_table("기본값", m);
-        set_table("글자수", m.length !== 0 ? m.length : "");
+        set_table("글자수", m.length || "");
         set_table("한영타", gksdud(m));
         set_table("영한타", dudgks(m));
         set_table("영한영", gksdud(dudgks(m)));
         set_table("한영한", dudgks(gksdud(m)));
         set_table("반대로", m.split("").reverse().join(""));
-        set_table("첫번째", m[0] !== undefined ? m[0] : "");
+        set_table("첫번째", m[0] || "");
         set_table("마지막", m.slice(-1));
         set_table("계산값", "");
       }
@@ -272,6 +272,6 @@
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
-    <div id="copy_table"></div>
+    <div id="contentMenuDiv"></div>
   </body>
 </html>
