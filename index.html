@@ -62,16 +62,15 @@
             $(".custom-menu").remove();
           });
 
-          $("td, .custom-menu").bind("contextmenu", function(event) {
+          function right_click_event(event) {
             event.preventDefault();
             find_text = event.currentTarget.childNodes[1] !== undefined ? event.currentTarget.childNodes[1].nodeValue : event.currentTarget.childNodes[0].nodeValue;
-            console.log(event.currentTarget.childNodes[1])
-            console.log(event.currentTarget.childNodes[1] !== undefined)
-            console.log(find_text);
             $(`<div class='custom-menu'>${find_text}</div>`)
               .appendTo("#contentMenuDiv")
               .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
-          });
+              .bind("contextmenu", right_click_event);
+          }
+          $("td, .custom-menu").bind("contextmenu", right_click_event);
 
           console.log("jQuery가 전부 로드되었습니다.");
 
