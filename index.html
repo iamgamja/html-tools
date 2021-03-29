@@ -18,7 +18,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 12:56 15.00
+    </style> 버전:2021-03-29 12:56 15.01
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -58,13 +58,17 @@
         console.log("전부 로드되었습니다.")
       }
       
-      $(document).bind("contextmenu", function(event) { 
+      $("td").bind("contextmenu", function(event) { 
         event.preventDefault();
-        $(`<div class='custom-menu'>${event.target.innerHTML || event.target.nodeValue || "None"}</div>`)
+        $(`<div class='custom-menu'>${event.currenttarget.childNodes[1].nodeValue}</div>`)
           .appendTo("#contentMenuDiv")
           .css({top: (event.pageY) + "px", left: (event.pageX + "px")});
       }).bind("click", function(event) {
         $("contentMenuDiv").empty();
+      });
+      
+      $(document).bind("contextmenu", function(event) {
+        event.preventDefault();
       });
       
       function set(id, value) {
