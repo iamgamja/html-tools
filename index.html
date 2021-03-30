@@ -2,6 +2,10 @@
 <html lang="ko">
   <head>
     <style>
+      @font-face {
+        font-family: 'fontemon';
+        src: url(fontemon_small.otf) format('truetype');
+      }
       td {
         cursor: pointer;
       }
@@ -9,6 +13,9 @@
         font-family: monospace;
         white-space: pre-line;
         word-break: break-all;
+      }
+      #포켓몬포켓몬포켓몬 {
+        font-family: fontemon;
       }
       .custom-menu {
         z-index: 100;
@@ -18,7 +25,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-29 4:26 16.0
+    </style> 버전:2021-03-30 6:39 16.01
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -43,9 +50,9 @@
         }
         
         table_html = ""
-        table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값"]
+        table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
         for (i of table_items) {
-          table_html += `<tr><td id="${i}${i}" onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
+          table_html += `<tr id="${i}${i}${i}"><td id="${i}${i}" onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
         
@@ -287,6 +294,7 @@
         set_table("첫번째", m[0] || "");
         set_table("마지막", m.slice(-1));
         set_table("계산값", "");
+        set_table("포켓몬", m);
       }
     </script>
   </head>
