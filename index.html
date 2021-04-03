@@ -25,7 +25,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-03 12:49 16.06
+    </style> 버전:2021-04-03 1:2 16.08
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -211,28 +211,21 @@
               is_command = true;
               if (m.split(' ')[0] === "hide") {
                 $('#'+m.split(' ')[1]).hide();
-                console.log(1, is_command)
               } else if (m.split(' ')[0] === "show") {
                 $('#'+m.split(' ')[1]).show();
-                console.log(2, is_command)
               } else if (m.split(' ')[0] === "toggle") {
                 $('#'+m.split(' ')[1]).toggle();
-                console.log(3, is_command)
               } else {
                 is_command = false; // 커맨드가 아닐때만 false
-                console.log(4, is_command)
               }
               if (is_command) { // 커맨드를 실행했다면
-                console.log("커맨드를 실행했다고 인식함");
                 $("#myTextarea").animate({
-                  "background-color": "yellow"
+                  "background-color": "ffff00"
                 }, 400, 'swing', function() {
                   $(this).animate({
-                    "background-color": "white"
+                    "background-color": "ffffff"
                   }, 1000);
                 });
-              } else {
-                console.log("커맨드를 실행했다고 인식하지 않음")
               }
             }
           } else {
