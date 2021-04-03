@@ -220,12 +220,10 @@
               }
               if (is_command) { // 커맨드를 실행했다면
                 $("#myTextarea").animate({
-//                   "background-color": "#ffff00"
-                  width: '70%'
+                  "border-width": '2px'
                 }, 400, 'swing', function() {
                   $(this).animate({
-//                     "background-color": "#ffffff"
-                    width: '50%'
+                    "border-width": '1px'
                   }, 1000);
                 });
               }
