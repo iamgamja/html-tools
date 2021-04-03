@@ -25,7 +25,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-03 11:26 16.03
+    </style> 버전:2021-04-03 12:23 16.05
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -207,18 +207,25 @@
               m = m.slice(1);
               commands = "hide"
               commands = commands.split(' ')
-              switch (m.split(' ')[0]) {
-                case "hide":
-                  $('#'+m.split(' ')[1]).hide()
-                  break;
-                case "show":
-                  $('#'+m.split(' ')[1]).show()
-                  break;
-                case "toggle":
-                  $('#'+m.split(' ')[1]).toggle()
-                  break;
-                default:
-                  console.log("명령어를 찾을 수 없음.")
+              
+              is_command = true;
+              if (m.split(' ')[0] === "hide") {
+                $('#'+m.split(' ')[1]).hide();
+              } else if (m.split(' ')[0] === "show") {
+                $('#'+m.split(' ')[1]).show();
+              } else if (m.split(' ')[0] === "toggle") {
+                $('#'+m.split(' ')[1]).toggle();
+              } else {
+                is_command = false; // 커맨드가 아닐때만 false
+              }
+              if (is_command) { // 커맨드를 실행했다면
+                $("#myTextarea").animate({
+                  "background-color": "yellow"
+                }, 400, 'swing', function() {
+                  $(this).animate({
+                    "background-color": "white"
+                  }, 1000);
+                });
               }
             }
           } else {
