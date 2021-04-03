@@ -25,7 +25,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-03 1:2 16.10
+    </style> 버전:2021-04-03 1:38 16.11
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -40,6 +40,8 @@
     <script src="https://unpkg.com/mathjs@9.3.0/lib/browser/math.js"></script>
 <!--     제이쿼리 -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--     jQuery animate colors -->
+    <script src="https://cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
     
     <script>      
       function body_load() {
@@ -220,10 +222,10 @@
               }
               if (is_command) { // 커맨드를 실행했다면
                 $("#myTextarea").animate({
-                  "border-width": '2px'
+                  backgroundColor: '#ffff00'
                 }, 400, 'swing', function() {
                   $(this).animate({
-                    "border-width": '1px'
+                    backgroundColor: '#ffffff'
                   }, 1000);
                 });
               }
