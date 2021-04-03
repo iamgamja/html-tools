@@ -14,7 +14,7 @@
         white-space: pre-line;
         word-break: break-all;
       }
-      #포켓몬포켓몬포켓몬 {
+      #포켓몬2 {
         font-family: fontemon;
       }
       .custom-menu {
@@ -25,7 +25,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-03-30 6:39 16.01
+    </style> 버전:2021-04-03 11:26 16.03
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -43,7 +43,7 @@
     
     <script>      
       function body_load() {
-        table = document.getElementById("table");
+        table = $("#table")[0];
         
         window.onresize = function() {
           table.style.width = `${body.offsetWidth}px`
@@ -52,13 +52,13 @@
         table_html = ""
         table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
         for (i of table_items) {
-          table_html += `<tr id="${i}${i}${i}"><td id="${i}${i}" onclick="click_table();">${i}</td><td id="${i}" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
+          table_html += `<tr id="${i}"><td id="${i}1" onclick="click_table();">${i}</td><td id="${i}2" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html
         
-        document.getElementById("기본값기본값").style.width = "42px";
-        document.getElementById("기본값_").style.width = "49px"; // 224
-        document.getElementById("기본값__").style.width = "49px"; // 448
+        $("#기본값1")[0].style.width = "42px";
+        $("#기본값_")[0].style.width = "49px"; // 224
+        $("#기본값__")[0].style.width = "49px"; // 448
         
         main();
         
@@ -70,7 +70,7 @@
           });
           
           $(".custom-menu").bind("click", function(event) {
-            document.getElementById("myTextarea").value = event.currentTarget.childNodes[0].nodeValue;
+            $("#myTextarea")[0].value = event.currentTarget.childNodes[0].nodeValue;
             $(".custom-menu").remove();
             main();
           });
@@ -191,23 +191,36 @@
       }
 
       function set_table(table_id, value) {
-        document.getElementById(table_id).innerHTML = value;
-        document.getElementById(table_id+'_').innerHTML = `<!--${md5(value)}-->${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`;
-        document.getElementById(table_id+'__').innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
+        $('#'+table_id+'2')[0].innerHTML = value;
+        $('#'+table_id+'_')[0].innerHTML = `<!--${md5(value)}-->${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`;
+        $('#'+table_id+'__')[0].innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
       }
 
       shift = false;
       function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift === true) { // 연속 2번 눌렸다면
-            // 조금 위험한 것들 실행(계산)
-            try {
-              set_table("계산값", math.evaluate(m));
-            } catch(e) {
-              set_table("계산값", e);
-            }
-
             shift = false;
+            // 조금 위험한 것들 실행(명령어)
+            m = $("#myTextArea")[0].value;
+            if (m.startsWith("/")) {
+              m = m.slice(1);
+              commands = "hide"
+              commands = commands.split(' ')
+              switch (m.split(' ')[0]) {
+                case "hide":
+                  $('#'+m.split(' ')[1]).hide()
+                  break;
+                case "show":
+                  $('#'+m.split(' ')[1]).show()
+                  break;
+                case "toggle":
+                  $('#'+m.split(' ')[1]).toggle()
+                  break;
+                default:
+                  console.log("명령어를 찾을 수 없음.")
+              }
+            }
           } else {
             shift = true;
           }
@@ -225,11 +238,11 @@
       
       function click_table() {
         if (!event.target.id.endsWith("_")) {
-          document.getElementById("myTextarea").value = event.target.innerHTML;
+          $("#myTextarea")[0].value = event.target.innerHTML;
         } else {
           c1 = get_c1(event.target)
           c2 = get_c2(event.target)
-          document.getElementById("myTextarea").value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
+          $("#myTextarea")[0].value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
         }
         main();
       }
@@ -249,7 +262,7 @@
       
       function see_spoiler() {
         set_see_spoiler(event.currentTarget);
-        trs = document.getElementById("table").childNodes[0].childNodes; // tr 여러개
+        trs = $("#table")[0].childNodes[0].childNodes; // tr 여러개
         for (tr of trs) {
           tds = tr.childNodes; // td 2개
           for (td of tds) {
@@ -259,11 +272,11 @@
           }
         }
         if (!event.currentTarget.id.endsWith("__")) { // md5
-          document.getElementById("기본값_").style.width = "224px";
-          document.getElementById("기본값__").style.width = "49px";
+          $("#기본값_")[0].style.width = "224px";
+          $("#기본값__")[0].style.width = "49px";
         } else { // sha256
-          document.getElementById("기본값__").style.width = "448px";
-          document.getElementById("기본값_").style.width = "49px";
+          $("#기본값__")[0].style.width = "448px";
+          $("#기본값_")[0].style.width = "49px";
         }
       }
       
@@ -277,12 +290,12 @@
             }
           }
         }
-        document.getElementById("기본값_").style.width = "49px";
-        document.getElementById("기본값__").style.width = "49px";
+        $("#기본값_")[0].style.width = "49px";
+        $("#기본값__")[0].style.width = "49px";
       }
 
       function main() {
-        m = document.getElementById("myTextarea").value || "";
+        m = $("#myTextarea")[0].value || "";
 
         set_table("기본값", m);
         set_table("글자수", m.length || "");
@@ -293,7 +306,11 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째", m[0] || "");
         set_table("마지막", m.slice(-1));
-        set_table("계산값", "");
+        try {
+          set_table("계산값", math.evaluate(m));
+        } catch(e) {
+          set_table("계산값", e);
+        }
         set_table("포켓몬", m);
       }
     </script>
