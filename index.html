@@ -202,7 +202,7 @@
           if (shift === true) { // 연속 2번 눌렸다면
             shift = false;
             // 조금 위험한 것들 실행(명령어)
-            m = $("#myTextArea")[0].value;
+            m = $("#myTextarea")[0].value;
             if (m.startsWith("/")) {
               m = m.slice(1);
               commands = "hide"
