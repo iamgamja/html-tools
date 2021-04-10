@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 03:50 17.6
+    </style> 버전:2021-04-10 03:50 17.7
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -139,10 +139,10 @@
         
         for (let i=2; i<=16; i++) {
           if (!f.startsWith(f[0].repeat(i))) {
+            var same_number = i-1;
             break
           }
         }
-        var same_number = i-1
         if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
             console.log(`%c새로운 문자를 발견했습니다! (md5 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
@@ -165,10 +165,10 @@
         
         for (let i=2; i<=64; i++) {
           if (!f.startsWith(f[0].repeat(i))) {
+            var same_number = i-1;
             break
           }
         }
-        var same_number = i-1
         if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_sha256[same_number.toString()])) { // 새로운 문자라면
             console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
