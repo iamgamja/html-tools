@@ -16,6 +16,7 @@
       }
       #포켓몬2 {
         font-family: fontemon;
+        font-size: 13px;
       }
       .custom-menu {
         z-index: 100;
@@ -25,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-03 01:43 17.0
+    </style> 버전:2021-04-10 02:14 17.1
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -47,8 +48,9 @@
       function body_load() {
         table = $("#table")[0];
         
+        table.style.width = `${body.offsetWidth}px` // 먼저 한번 설정하고 
         window.onresize = function() {
-          table.style.width = `${body.offsetWidth}px`
+          table.style.width = `${body.offsetWidth}px` // 바뀔때마다 설정하기
         }
         
         table_html = ""
@@ -56,7 +58,9 @@
         for (i of table_items) {
           table_html += `<tr id="${i}"><td id="${i}1" onclick="click_table();">${i}</td><td id="${i}2" onclick="click_table();"></td><td id="${i}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${i}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
-        table.innerHTML = table_html
+        table.innerHTML = table_html;
+        
+        $("#계산값").hide();
         
         $("#기본값1")[0].style.width = "42px";
         $("#기본값_")[0].style.width = "49px"; // 224
@@ -80,11 +84,12 @@
           $("*").not("td, .custom-menu").bind("contextmenu", function(event) {
             event.preventDefault();
           });
-
+          
+          isS = false;
           function right_click_event(event) {
             event.preventDefault();
             find_text = event.currentTarget.childNodes[1] !== undefined ? event.currentTarget.childNodes[1].nodeValue : event.currentTarget.childNodes[0].nodeValue;
-            $(`<div class='custom-menu'>${$("#isSha256").is(":checked") ? sha256(find_text) : md5(find_text)}</div>`)
+            $(`<div class='custom-menu'>${isS ? sha256(find_text) : md5(find_text)}</div>`)
               .appendTo("#contentMenuDiv")
               .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
               .bind("contextmenu", right_click_event);
@@ -209,16 +214,29 @@
               m = m.slice(1);
               commands = "hide"
               commands = commands.split(' ')
+              m = m.split(' ');
               
               is_command = true;
-              if (m.split(' ')[0] === "hide") {
-                $('#'+m.split(' ')[1]).hide();
-              } else if (m.split(' ')[0] === "show") {
-                $('#'+m.split(' ')[1]).show();
-              } else if (m.split(' ')[0] === "toggle") {
-                $('#'+m.split(' ')[1]).toggle();
-              } else {
-                is_command = false; // 커맨드가 아닐때만 false
+              if (m[0].startsWith("s")) { // show & hide
+                if (m[1].startsWith("h")) { // hide
+                  $('#'+m[2]).hide();
+                } else if (m[1].startsWith("s")) { // show
+                  $('#'+m[2]).show();
+                } else if (m[1].startsWith("t")) { // toggle
+                  $('#'+m[2]).toggle();
+                } else { // not command
+                  is_command = false;
+                }
+              } else if (m[0].startsWith("r")) { // right click setting
+                if (m[1].startsWith("s")) { // sha256
+                  isS = true;
+                } else if (m[1].startsWith("m")) { // md5
+                  isS = false;
+                } else { // not command
+                  is_command = false;
+                }
+              } else { // not command
+                is_command = false;
               }
               if (is_command) { // 커맨드를 실행했다면
                 $("#myTextarea").animate({
