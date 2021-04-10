@@ -21,7 +21,7 @@
   var 겹글 = "rsfqhnm"
 
   function gksdud(m) {
-    var m+='.'
+    m += '.'
     var f = ''
     for (let i of m){
       var c = i.charCodeAt(0)
@@ -41,7 +41,7 @@
   }
 
   function dudgks(m) {
-    var m+='.'
+    m += '.'
     var f=''
     var w=''
     var 임시 = "NaN"
@@ -69,12 +69,12 @@
       }
       // console.log(i, m[i], 임시, w)
     }
-    //한글을 합치기
+    // 한글을 합치기
     var temp = []
     for (let i of w) {
         temp.push(i)
     }
-    var w=temp; // 재선언
+    var w = temp; // 재선언
 
     var 임시 = []; // 재선언
     for (let i in w) {
@@ -83,18 +83,18 @@
         if (초성.indexOf(w[i]) != -1) {
           임시.push(w[i])
         } else {
-          f+=w[i]
+          f += w[i]
         }
       } else if (임시.length == 1) {
         if (중성.indexOf(w[i]) != -1) {
           임시.push(w[i])
         } else {
-          f+=임시[0]
+          f += 임시[0]
           임시 = 임시.splice(1, 임시.length)
           if (초성.indexOf(w[i]) != -1) {
             임시.push(w[i])
           } else {
-            f+=w[i]
+            f += w[i]
           }
         }
       } else {
@@ -113,13 +113,13 @@
           if (초성.indexOf(w[i]) != -1) {
             임시.push(w[i])
           } else {
-            f+=w[i]
+            f += w[i]
           }
         }
       }
     }
     for (let i of 임시) {
-      f+=i
+      f += i
     }
     return f.slice(0, -1)
   }
