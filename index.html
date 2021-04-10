@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 03:50 17.7
+    </style> 버전:2021-04-10 04:13 18.0
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -209,16 +209,12 @@
               m = m.slice(1).split(' ');
               
               var is_command = true; // 지역변수, 커맨드가 사용되었는지 나타내는 변수
-              if (m[0].startsWith("s")) { // show & hide
-                if (m[1].startsWith("h")) { // hide
-                  $('#'+m[2]).hide();
-                } else if (m[1].startsWith("s")) { // show
-                  $('#'+m[2]).show();
-                } else if (m[1].startsWith("t")) { // toggle
-                  $('#'+m[2]).toggle();
-                } else { // not command
-                  is_command = false;
-                }
+              if (m[1].startsWith("h")) { // hide
+                $('#'+m[2]).hide();
+              } else if (m[1].startsWith("s")) { // show
+                $('#'+m[2]).show();
+              } else if (m[1].startsWith("t")) { // toggle
+                $('#'+m[2]).toggle();
               } else if (m[0].startsWith("r")) { // right click setting
                 if (m[1].startsWith("s")) { // sha256
                   isS = true;
@@ -325,10 +321,12 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째", m[0] || "");
         set_table("마지막", m.slice(-1));
-        try {
-          set_table("계산값", math.evaluate(m));
-        } catch(e) {
-          set_table("계산값", e);
+        if ($(gksdud("#계산값")).css("display") !== "none") { // 계산은 보일때만
+          try {
+            set_table("계산값", m ? math.evaluate(m) : "");
+          } catch(e) {
+            set_table("계산값", e);
+          }
         }
         set_table("포켓몬", m);
       }
