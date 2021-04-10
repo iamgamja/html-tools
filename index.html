@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 02:47 17.3
+    </style> 버전:2021-04-10 03:25 17.4
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -46,9 +46,9 @@
     
     <script>      
       function body_load() {
-        $("#table");.css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
+        $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
         window.onresize = function() {
-          $("#table");.css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
+          $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
         var table_html = ""
