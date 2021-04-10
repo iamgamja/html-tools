@@ -14,7 +14,7 @@
   영어 = ['r', 'R', 'rt', 's', 'sw', 'sg', 'e', 'E', 'f', 'fr', 'fa', 'fq', 'ft', 'fx', 'fv', 'fg', 'a', 'q', 'Q', 'qt', 't', 'T', 'd', 'w', 'W', 'c', 'z', 'x', 'v', 'g', 'k', 'o', 'i', 'O', 'j', 'p', 'u', 'P', 'h', 'hk', 'ho', 'hl', 'y', 'n', 'nj', 'np', 'nl', 'b', 'm', 'ml', 'l', '']
   한영 = {}
   영한 = {}
-  for (i=0; i<52; i++) {
+  for (let i=0; i<52; i++) {
     한영[한글[i]] = 영어[i]
     영한[영어[i]] = 한글[i]
   }
@@ -23,7 +23,7 @@
   function gksdud(m) {
     var m+='.'
     var f = ''
-    for (i of m){
+    for (let i of m){
       var c = i.charCodeAt(0)
       if (배코<=c && c<=맥코) {
         c%=배코 ; f+=한영[초성[parseInt(c/초코)]]
@@ -46,8 +46,8 @@
     var w=''
     var 임시 = "NaN"
     //한글로 바꾸기
-    for (i in m) {
-      var i = Number(i)
+    for (let i in m) {
+      i = Number(i)
       if (겹글.indexOf(m[i]) != -1 && m.length>=i+2 && 임시 == "NaN") {
         임시 = m[i]
       } else if (임시+m[i] in 영한) {
@@ -71,14 +71,14 @@
     }
     //한글을 합치기
     var temp = []
-    for (i of w) {
+    for (let i of w) {
         temp.push(i)
     }
     var w=temp; // 재선언
 
     var 임시 = []; // 재선언
-    for (i in w) {
-      var i = Number(i)
+    for (let i in w) {
+      i = Number(i)
       if (임시.length == 0) {
         if (초성.indexOf(w[i]) != -1) {
           임시.push(w[i])
@@ -118,7 +118,7 @@
         }
       }
     }
-    for (i of 임시) {
+    for (let i of 임시) {
       f+=i
     }
     return f.slice(0, -1)
