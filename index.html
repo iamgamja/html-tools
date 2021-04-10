@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 04:13 18.0
+    </style> 버전:2021-04-10 04:13 18.0+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -321,12 +321,14 @@
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째", m[0] || "");
         set_table("마지막", m.slice(-1));
-        if ($(gksdud("#계산값")).css("display") !== "none") { // 계산은 보일때만
+        if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음. 하지만 기본 틀은 맞춰야함.
           try {
             set_table("계산값", m ? math.evaluate(m) : "");
           } catch(e) {
             set_table("계산값", e);
           }
+        } else { // 기본 틀은 맞춰야 하기 때문에 빈 값 세팅
+          set_table("계산값", "");
         }
         set_table("포켓몬", m);
       }
