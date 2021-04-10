@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 03:25 17.5
+    </style> 버전:2021-04-10 03:50 17.6
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -53,7 +53,7 @@
         
         var table_html = ""
         var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
-        for (i of table_items) {
+        for (let i of table_items) {
           item = gksdud(i);
           table_html += `<tr id="${item}"><td id="${item}1" onclick="click_table();">${i}</td><td id="${item}2" onclick="click_table();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
@@ -116,7 +116,7 @@
       special_md5 = get("special_md5"); // 전역변수, 특별한 md5 값 저장된 json
       if (!special_md5) {
         special_md5 = {}
-        for (i=3; i<=16; i++) {
+        for (let i=3; i<=16; i++) {
           special_md5[i.toString()] = {}
         }
         special_md5["mirror"] = {}
@@ -126,7 +126,7 @@
       special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
       if (!special_sha256) {
         special_sha256 = {}
-        for (i=3; i<=64; i++) {
+        for (let i=3; i<=64; i++) {
           special_sha256[i.toString()] = {}
         }
         special_sha256["mirror"] = {}
@@ -137,8 +137,8 @@
         var m = m.toString()
         var f = CryptoJS.MD5(m).toString()
         
-        for (i=2; i<=16; i++) {
-          if (!(f.startsWith(f[0].repeat(i)))) {
+        for (let i=2; i<=16; i++) {
+          if (!f.startsWith(f[0].repeat(i))) {
             break
           }
         }
@@ -163,8 +163,8 @@
         var m = m.toString()
         var f = SHA256(m)
         
-        for (i=2; i<=64; i++) {
-          if (!(f.startsWith(f[0].repeat(i)))) {
+        for (let i=2; i<=64; i++) {
+          if (!f.startsWith(f[0].repeat(i))) {
             break
           }
         }
@@ -282,9 +282,9 @@
       function see_spoiler() {
         set_see_spoiler(event.currentTarget);
         var trs = $("#table")[0].childNodes[0].childNodes; // tr 여러개
-        for (tr of trs) {
+        for (let tr of trs) {
           var tds = tr.childNodes; // td 2개
-          for (td of tds) {
+          for (let td of tds) {
             if (td.id.endsWith("_") && td !== event.currentTarget) {
               set_not_see_spoiler(td);
             }
@@ -301,9 +301,9 @@
       
       function all_spoiler() {
         var trs = table.childNodes[0].childNodes; // tr 여러개
-        for (tr of trs) {
+        for (let tr of trs) {
           var tds = tr.childNodes; // td 2개
-          for (td of tds) {
+          for (let td of tds) {
             if (td.id.endsWith("_")) {
               set_not_see_spoiler(td);
             }
