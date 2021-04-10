@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-10 02:47 17.2
+    </style> 버전:2021-04-10 02:47 17.3
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -46,15 +46,13 @@
     
     <script>      
       function body_load() {
-        table = $("#table")[0];
-        
-        table.style.width = `${body.offsetWidth}px` // 먼저 한번 설정하고 
+        $("#table");.css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
         window.onresize = function() {
-          table.style.width = `${body.offsetWidth}px` // 바뀔때마다 설정하기
+          $("#table");.css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
-        table_html = ""
-        table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
+        var table_html = ""
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
         for (i of table_items) {
           item = gksdud(i);
           table_html += `<tr id="${item}"><td id="${item}1" onclick="click_table();">${i}</td><td id="${item}2" onclick="click_table();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
@@ -63,9 +61,9 @@
         
         $(gksdud("#계산값")).hide();
         
-        $(gksdud("#기본값1"))[0].style.width = "42px";
-        $(gksdud("#기본값_"))[0].style.width = "49px"; // 224
-        $(gksdud("#기본값__"))[0].style.width = "49px"; // 448
+        $(gksdud("#기본값1")).css("width", "42px");
+        $(gksdud("#기본값_")).css("width", "49px"); // 224
+        $(gksdud("#기본값__")).css("width", "49px"; // 448
         
         main();
         
@@ -86,10 +84,10 @@
             event.preventDefault();
           });
           
-          isS = false;
+          isS = false; // 전역변수, true: sha256, false: md5
           function right_click_event(event) {
             event.preventDefault();
-            find_text = event.currentTarget.childNodes[1] !== undefined ? event.currentTarget.childNodes[1].nodeValue : event.currentTarget.childNodes[0].nodeValue;
+            var find_text = event.currentTarget.childNodes[1] !== undefined ? event.currentTarget.childNodes[1].nodeValue : event.currentTarget.childNodes[0].nodeValue;
             $(`<div class='custom-menu'>${isS ? sha256(find_text) : md5(find_text)}</div>`)
               .appendTo("#contentMenuDiv")
               .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
@@ -98,10 +96,6 @@
           
           $("td, .custom-menu").bind("contextmenu", right_click_event);
           
-          // $("*").bind("touchstart", function(event) {
-          //   event.preventDefault()
-          // });
-
           console.log("jQuery가 전부 로드되었습니다.");
 
         });
@@ -119,7 +113,7 @@
         location.reload();
       }
       
-      special_md5 = get("special_md5")
+      special_md5 = get("special_md5"); // 전역변수, 특별한 md5 값 저장된 json
       if (!special_md5) {
         special_md5 = {}
         for (i=3; i<=16; i++) {
@@ -129,7 +123,7 @@
         set("special_md5", special_md5)
       }
       
-      special_sha256 = get("special_sha256")
+      special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
       if (!special_sha256) {
         special_sha256 = {}
         for (i=3; i<=64; i++) {
@@ -140,15 +134,15 @@
       }
       
       function md5(m) {
-        m = m.toString()
-        f = CryptoJS.MD5(m).toString()
+        var m = m.toString()
+        var f = CryptoJS.MD5(m).toString()
         
         for (i=2; i<=16; i++) {
           if (!(f.startsWith(f[0].repeat(i)))) {
             break
           }
         }
-        same_number = i-1
+        var same_number = i-1
         if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
             console.log(`%c새로운 문자를 발견했습니다! (md5 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
@@ -166,15 +160,15 @@
       }
       
       function sha256(m) {
-        m = m.toString()
-        f = SHA256(m)
+        var m = m.toString()
+        var f = SHA256(m)
         
         for (i=2; i<=64; i++) {
           if (!(f.startsWith(f[0].repeat(i)))) {
             break
           }
         }
-        same_number = i-1
+        var same_number = i-1
         if (same_number > 3) { // 앞자리 일부가 겹치면
           if (!(m in special_sha256[same_number.toString()])) { // 새로운 문자라면
             console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
@@ -204,20 +198,17 @@
         $('#'+gksdud(table_id)+'__')[0].innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
       }
 
-      shift = false;
+      shift = false; // 전역변수, 연속으로 눌리는지를 감지하기 위한 변수
       function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
-          if (shift === true) { // 연속 2번 눌렸다면
+          if (shift) { // 연속 2번 눌렸다면
             shift = false;
             // 조금 위험한 것들 실행(명령어)
-            m = $("#myTextarea")[0].value;
+            var m = gksdud($("#myTextarea")[0].value);
             if (m.startsWith("/")) {
-              m = m.slice(1);
-              commands = "hide"
-              commands = commands.split(' ')
-              m = gksdud(m).split(' ');
+              m = m.slice(1).split(' ');
               
-              is_command = true;
+              var is_command = true; // 지역변수, 커맨드가 사용되었는지 나타내는 변수
               if (m[0].startsWith("s")) { // show & hide
                 if (m[1].startsWith("h")) { // hide
                   $('#'+m[2]).hide();
@@ -249,10 +240,10 @@
                 });
               }
             }
-          } else {
+          } else { // 이전에 눌리지 않았을때
             shift = true;
           }
-        } else {
+        } else { // 쉬프트가 아닐때
           shift = false;
         }
       }
@@ -268,31 +259,31 @@
         if (!event.target.id.endsWith("_")) {
           $("#myTextarea")[0].value = event.target.innerHTML;
         } else {
-          c1 = get_c1(event.target)
-          c2 = get_c2(event.target)
+          var c1 = get_c1(event.target)
+          var c2 = get_c2(event.target)
           $("#myTextarea")[0].value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
         }
         main();
       }
       
       function set_see_spoiler(ele) {
-        c1 = get_c1(ele)
-        c2 = get_c2(ele)
+        var c1 = get_c1(ele)
+        var c2 = get_c2(ele)
         if (c1.length < c2.length) return; // 이미 보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
-        c1 = get_c1(ele)
-        c2 = get_c2(ele)
+        var c1 = get_c1(ele)
+        var c2 = get_c2(ele)
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       
       function see_spoiler() {
         set_see_spoiler(event.currentTarget);
-        trs = $("#table")[0].childNodes[0].childNodes; // tr 여러개
+        var trs = $("#table")[0].childNodes[0].childNodes; // tr 여러개
         for (tr of trs) {
-          tds = tr.childNodes; // td 2개
+          var tds = tr.childNodes; // td 2개
           for (td of tds) {
             if (td.id.endsWith("_") && td !== event.currentTarget) {
               set_not_see_spoiler(td);
@@ -300,30 +291,30 @@
           }
         }
         if (!event.currentTarget.id.endsWith("__")) { // md5
-          $(gksdud("#기본값_"))[0].style.width = "224px";
-          $(gksdud("#기본값__"))[0].style.width = "49px";
+          $(gksdud("#기본값_")).css("width", "224px");
+          $(gksdud("#기본값__")).css("width", "49px");
         } else { // sha256
-          $(gksdud("#기본값__"))[0].style.width = "448px";
-          $(gksdud("#기본값_"))[0].style.width = "49px";
+          $(gksdud("#기본값__")).css("width", "448px");
+          $(gksdud("#기본값_")).css("width", "49px");
         }
       }
       
       function all_spoiler() {
-        trs = document.getElementById("table").childNodes[0].childNodes; // tr 여러개
+        var trs = table.childNodes[0].childNodes; // tr 여러개
         for (tr of trs) {
-          tds = tr.childNodes; // td 2개
+          var tds = tr.childNodes; // td 2개
           for (td of tds) {
             if (td.id.endsWith("_")) {
               set_not_see_spoiler(td);
             }
           }
         }
-        $(gksdud("#기본값_"))[0].style.width = "49px";
-        $(gksdud("#기본값__"))[0].style.width = "49px";
+        $(gksdud("#기본값_")).css("width", "49px");
+        $(gksdud("#기본값__")).css("width", "49px");
       }
 
       function main() {
-        m = $("#myTextarea")[0].value || "";
+        var m = $("#myTextarea")[0].value || "";
 
         set_table("기본값", m);
         set_table("글자수", m.length || "");
