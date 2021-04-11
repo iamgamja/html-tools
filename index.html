@@ -26,7 +26,7 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-11 02:15 18.1
+    </style> 버전:2021-04-11 02:15 18.2
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -44,7 +44,14 @@
 <!--     jQuery animate colors -->
     <script src="https://cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
     
-    <script>      
+    <script>
+      // 변수 설정
+      special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
+      isS = false; // 전역변수, true: sha256, false: md5
+      shift = false; // 전역변수, 연속으로 눌리는지를 감지하기 위한 변수
+      special_md5 = get("special_md5"); // 전역변수, 특별한 md5 값 저장된 json
+      // 끝
+      
       function body_load() {
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
         window.onresize = function() {
@@ -84,7 +91,6 @@
             event.preventDefault();
           });
           
-          isS = false; // 전역변수, true: sha256, false: md5
           function right_click_event(event) {
             event.preventDefault();
             
@@ -120,7 +126,6 @@
         location.reload();
       }
       
-      special_md5 = get("special_md5"); // 전역변수, 특별한 md5 값 저장된 json
       if (!special_md5) {
         special_md5 = {}
         for (let i=3; i<=16; i++) {
@@ -130,7 +135,6 @@
         set("special_md5", special_md5)
       }
       
-      special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
       if (!special_sha256) {
         special_sha256 = {}
         for (let i=3; i<=64; i++) {
@@ -205,7 +209,6 @@
         $('#'+gksdud(table_id)+'__')[0].innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
       }
 
-      shift = false; // 전역변수, 연속으로 눌리는지를 감지하기 위한 변수
       function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift) { // 연속 2번 눌렸다면
