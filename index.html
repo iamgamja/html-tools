@@ -26,6 +26,13 @@
         padding: 2px;
         font-family: monospace;
       }
+
+      div#inputs {
+        display: flex;
+        align-items: center;
+        padding: 0px;
+        margin: 0px;
+      }
       
       #command_button {
         display: inline-block;
@@ -63,7 +70,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.555
+    </style> 버전:2021-04-11 03:41 19.666
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -409,8 +416,10 @@
   
   <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
-      <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
-      <button id="command_button" type="button" onclick="command_check();" style="display: none;">click to command.</button>
+      <div id="inputs">
+        <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
+        <button id="command_button" type="button" onclick="command_check();" style="display: none;">click to command.</button>
+      </div>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
