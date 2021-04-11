@@ -63,7 +63,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.1
+    </style> 버전:2021-04-11 03:41 19.2
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -104,6 +104,7 @@
         } else {
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
+        $("#command_button").css("width", "50%");
 
         // table setting
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
@@ -408,7 +409,7 @@
   <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
-      <button id="command_button" onclick="command_check();" style="display: none;">click to command.</button>
+      <button id="command_button" type="button" onclick="command_check();" style="display: none;">click to command.</button>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
