@@ -40,7 +40,7 @@
         color:#fff;
         border:none;
         position:relative;
-        font-size:1.6em;
+        font-size:1em;
         padding:0 2em;
         cursor:pointer;
         transition:800ms ease all;
@@ -70,7 +70,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.678
+    </style> 버전:2021-04-11 03:41 19.8
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -111,8 +111,9 @@
         } else {
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
+        $("#inputs").css("height", $("#myTextarea").css("height"))
         $("#inputs").children().css("width", "50%");
-        $("#inputs").children().css("height", "100%");
+        $("#command_button").css("height", "100%");
         
         // table setting
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
