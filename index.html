@@ -70,7 +70,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.8
+    </style> 버전:2021-04-11 03:41 19.9
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -112,6 +112,7 @@
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
         $("#inputs").css("height", $("#myTextarea").css("height"))
+        $("#inputs").children().css("margin", "1px");
         $("#inputs").children().css("width", "50%");
         $("#command_button").css("height", "100%");
         
@@ -419,7 +420,7 @@
     <form>
       <div id="inputs">
         <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
-        <button id="command_button" type="button" onclick="command_check();" style="display: none;">click to command.</button>
+        <button id="command_button" type="button" onclick="command_check();" style="display: none;">click here!</button>
       </div>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
