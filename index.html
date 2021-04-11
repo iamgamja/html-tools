@@ -26,7 +26,12 @@
         padding: 2px;
         font-family: monospace;
       }
-    </style> 버전:2021-04-11 02:15 18.4
+      @media (max-width: 500px) {
+        #command_button {
+          display: block;
+        }
+      }
+    </style> 버전:2021-04-11 03:30 18.6
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -208,46 +213,51 @@
         $('#'+gksdud(table_id)+'_')[0].innerHTML = `<!--${md5(value)}-->${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`;
         $('#'+gksdud(table_id)+'__')[0].innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
       }
+      
+      function command_check() {
+        var m = gksdud($("#myTextarea")[0].value);
+        if (m.startsWith("/")) {
+          m = m.slice(1).split(' ');
 
-      function shift_check() {
+          var is_command = true; // 지역변수, 커맨드가 사용되었는지 나타내는 변수
+          if (m[0].startsWith("h")) { // hide
+            $('#'+m[1]).hide();
+          } else if (m[0].startsWith("s")) { // show
+            $('#'+m[1]).show();
+          } else if (m[0].startsWith("t")) { // toggle
+            $('#'+m[1]).toggle();
+          } else if (m[0].startsWith("r")) { // right click setting
+            if (m[1].startsWith("s")) { // sha256
+              isS = true;
+            } else if (m[1].startsWith("m")) { // md5
+              isS = false;
+            } else if (m[1].startsWith("t")) { // toggle
+              isS = !isS;
+            } else { // not command
+              is_command = false;
+            }
+          } else { // not command
+            is_command = false;
+          }
+          if (is_command) { // 커맨드를 실행했다면
+            $("#myTextarea").animate({
+              backgroundColor: '#ffff00'
+            }, 200, 'swing', function() {
+              $(this).animate({
+                backgroundColor: '#ffffff'
+              }, 900);
+            });
+          }
+        }
+      }
+      
+
+      function shift_check(cmd) {
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift) { // 연속 2번 눌렸다면
             shift = false;
             // 조금 위험한 것들 실행(명령어)
-            var m = gksdud($("#myTextarea")[0].value);
-            if (m.startsWith("/")) {
-              m = m.slice(1).split(' ');
-              
-              var is_command = true; // 지역변수, 커맨드가 사용되었는지 나타내는 변수
-              if (m[0].startsWith("h")) { // hide
-                $('#'+m[1]).hide();
-              } else if (m[0].startsWith("s")) { // show
-                $('#'+m[1]).show();
-              } else if (m[0].startsWith("t")) { // toggle
-                $('#'+m[1]).toggle();
-              } else if (m[0].startsWith("r")) { // right click setting
-                if (m[1].startsWith("s")) { // sha256
-                  isS = true;
-                } else if (m[1].startsWith("m")) { // md5
-                  isS = false;
-                } else if (m[1].startsWith("t")) { // toggle
-                  isS = !isS;
-                } else { // not command
-                  is_command = false;
-                }
-              } else { // not command
-                is_command = false;
-              }
-              if (is_command) { // 커맨드를 실행했다면
-                $("#myTextarea").animate({
-                  backgroundColor: '#ffff00'
-                }, 200, 'swing', function() {
-                  $(this).animate({
-                    backgroundColor: '#ffffff'
-                  }, 900);
-                });
-              }
-            }
+            command_check();
           } else { // 이전에 눌리지 않았을때
             shift = true;
           }
@@ -350,7 +360,7 @@
   <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
       <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
-      <input id="isSha256" type="checkbox"> sha256? <br>
+      <input id="command_button" type="button" onclick="command_check();">click to command<input>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
