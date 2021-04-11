@@ -70,7 +70,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.666
+    </style> 버전:2021-04-11 03:41 19.678
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -111,8 +111,8 @@
         } else {
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
-        $("#command_button").css("width", $("#myTextarea").css("width")); // myTextarea 너비 그대로 가져오기
-        $("#command_button").css("height", $("#myTextarea").css("height")); // myTextarea 높이 그대로 가져오기
+        $("#inputs").children().css("width", "50%");
+        $("#inputs").children().css("height", "100%");
         
         // table setting
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
