@@ -31,10 +31,18 @@
         display: flex;
         align-items: center;
         padding: 0px;
-        margin: 0px;
+        margin: 1px;
       }
       
+      #myTextarea {
+        margin: 1px;
+        width: 50%;
+      }
+
       #command_button {
+        margin: 1px;
+        width: 50%;
+        height: 100%;
         display: inline-block;
         background:#1AAB8A;
         color:#fff;
@@ -112,10 +120,7 @@
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
         $("#inputs").css("height", $("#myTextarea").css("height"))
-        $("#inputs").children().css("margin", "1px");
-        $("#inputs").children().css("width", "50%");
-        $("#command_button").css("height", "100%");
-        
+         
         // table setting
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
         window.onresize = function() {
@@ -421,7 +426,7 @@
       <div id="inputs">
         <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
         <button id="command_button" type="button" onclick="command_check();" style="display: none;">click here!</button>
-      </div>
+      </div> <br>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
     <br><br><br>
