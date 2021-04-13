@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.4
+<html lang="ko"> 버전:2021-04-12 09:45 20.5
   <head>
     <style>
       @font-face {
@@ -311,7 +311,7 @@
       }
       
 
-      function shift_check(cmd) {
+      function shift_check() {
         if (event.keyCode == 16) { // 쉬프트 눌림
           if (shift) { // 연속 2번 눌렸다면
             shift = false;
@@ -351,6 +351,7 @@
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
+        console.log("set_not_see_spoiler function is running... ele is " + ele);
         var c1 = get_c1(ele)
         var c2 = get_c2(ele)
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
