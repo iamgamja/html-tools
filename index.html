@@ -78,7 +78,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-11 03:41 19.9
+    </style> 버전:2021-04-12 09:42 20
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -98,10 +98,10 @@
     
     <script>
       // 변수 설정
-      special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
       isS = false; // 전역변수, true: sha256, false: md5
-      shift = false; // 전역변수, 연속으로 눌리는지를 감지하기 위한 변수
+      shift = false; // 전역변수, 쉬프트 키가 연속으로 눌렸는지를 감지하기 위한 변수
       special_md5 = get("special_md5"); // 전역변수, 특별한 md5 값 저장된 json
+      special_sha256 = get("special_sha256"); // 전역변수, 특별한 sha256 값 저장된 json
       // 끝
       
       function body_load() {
@@ -119,8 +119,8 @@
         } else {
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
-        $("#inputs").css("height", $("#myTextarea").css("height"))
-         
+        $("#inputs").css("height", `${Number($("#myTextarea").css("height").slice(0, -2))+6}px`) // margin, padding 길이(총 6px)만큼 추가.
+        
         // table setting
         $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
         window.onresize = function() {
@@ -346,6 +346,7 @@
           $("#myTextarea")[0].value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
         }
         main();
+        $("#myTextarea")[0].focus();
       }
       
       function set_see_spoiler(ele) {
@@ -424,7 +425,7 @@
   <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
       <div id="inputs">
-        <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();"></textarea>
+        <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onfocus="this.value = this.value;"></textarea>
         <button id="command_button" type="button" onclick="command_check();" style="display: none;">click here!</button>
       </div> <br>
     </form>
