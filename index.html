@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.13bb
+<html lang="ko"> 버전:2021-04-14 08:23 21.00
   <head>
     <style>
       @font-face {
@@ -102,21 +102,9 @@
       // 전역변수 설정
       isS = false; // 우클릭시 true: sha256, false: md5
       shift = false; // 쉬프트 키가 연속으로 눌렸는지를 감지하기 위한 변수
-      special_md5 = get("special_md5"); // 특별한 md5 값 저장된 json
-      special_sha256 = get("special_sha256"); // 특별한 sha256 값 저장된 json
-      min_special_number = 2; // special_에 들어가기 위해 필요한 최소 number
-      special_rule = [
-        function(f, i) {
-          return f.startsWith(f[0].repeat(i))
-        },
-        function(f, i) {
-          return f.endsWith(f.slice(-1).repeat(i))
-        }
-      ]
       // 끝
       
       function body_load() {
-        
         // mobile command button
         var filter = "win16|win32|win64|mac|macintel";
         if ( navigator.platform ) {
@@ -193,53 +181,10 @@
       function get(id) {
         return JSON.parse(localStorage.getItem(id))
       }
-      function reset_specials() {
-        set("special_md5", false);
-        set("special_sha256", false);
-        location.reload();
-      }
-      
-      if (!special_md5) {
-        special_md5 = {}
-        for (let i=0; i<=special_rule.length; i++) {
-          for (let j=min_special_number; i<=16; i++) {
-            special_md5[`${i}_{j}`] = {}
-          }
-        }
-        set("special_md5", special_md5)
-      }
-      if (!special_sha256) {
-        special_sha256 = {}
-        for (let i=0; i<=special_rule.length; i++) {
-          for (let j=min_special_number; i<=64; i++) {
-            special_sha256[`${i}_{j}`] = {}
-          }
-        }
-        set("special_sha256", special_sha256)
-      }
       
       function md5(m) {
         var m = m.toString()
         var f = CryptoJS.MD5(m).toString()
-        var scores = new Array(special_rule.length + 1).join('0').split('').map(parseFloat)
-        
-        for (let foo in special_rule) {
-          for (let i=min_special_number; i<=16; i++) {
-            if (!(special_rule[foo](f, i))) {
-              scores[foo] = i-1;
-              break
-            }
-          }
-        }
-        for (let score in scores) {
-          if (scores[score] > min_special_number) { // 앞자리 일부가 조건에 맞는다면
-            if (!(m in special_md5[`${score}_${scores[score]}`])) { // 새로운 문자라면
-              console.log(`%c새로운 문자를 발견했습니다! (md5_${score}_${scores[score]}) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
-              special_md5[`${score}_${scores[score]}`][m] = f; // json에 추가
-              set("special_md5", special_md5); // 저장
-            }
-          }
-        }
         return f
       }
       
@@ -247,25 +192,6 @@
       function sha256(m) {
         var m = m.toString()
         var f = SHA256(m)
-        var scores = new Array(special_rule.length + 1).join('0').split('').map(parseFloat)
-        
-        for (let foo in special_rule) {
-          for (let i=min_special_number; i<=64; i++) {
-            if (!(special_rule[foo](f, i))) {
-              scores[foo] = i-1;
-              break
-            }
-          }
-        }
-        for (let score in scores) {
-          if (scores[score] > min_special_number) { // 앞자리 일부가 조건에 맞는다면
-            if (!(m in special_sha256[`${score}_${scores[score]}`])) { // 새로운 문자라면
-              console.log(`%c새로운 문자를 발견했습니다! (sha256_${score}_${scores[score]}) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
-              special_sha256[`${score}_${scores[score]}`][m] = f; // json에 추가
-              set("special_sha256", special_sha256); // 저장
-            }
-          }
-        }
         return f
       }
       
