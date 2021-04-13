@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.13b
+<html lang="ko"> 버전:2021-04-12 09:45 20.13bb
   <head>
     <style>
       @font-face {
@@ -106,10 +106,10 @@
       special_sha256 = get("special_sha256"); // 특별한 sha256 값 저장된 json
       min_special_number = 2; // special_에 들어가기 위해 필요한 최소 number
       special_rule = [
-        function(f) {
+        function(f, i) {
           return f.startsWith(f[0].repeat(i))
         },
-        function(f) {
+        function(f, i) {
           return f.endsWith(f.slice(-1).repeat(i))
         }
       ]
@@ -225,7 +225,7 @@
         
         for (let foo in special_rule) {
           for (let i=min_special_number; i<=16; i++) {
-            if (!(special_rule[foo](f))) {
+            if (!(special_rule[foo](f, i))) {
               scores[foo] = i-1;
               break
             }
@@ -251,7 +251,7 @@
         
         for (let foo in special_rule) {
           for (let i=min_special_number; i<=64; i++) {
-            if (!(special_rule[foo](f))) {
+            if (!(special_rule[foo](f, i))) {
               scores[foo] = i-1;
               break
             }
