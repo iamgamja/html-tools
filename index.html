@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.9
+<html lang="ko"> 버전:2021-04-12 09:45 20.10
   <head>
     <style>
       @font-face {
@@ -192,19 +192,17 @@
       
       if (!special_md5) {
         special_md5 = {}
-        for (let i=3; i<=16; i++) {
+        for (let i=1; i<=16; i++) {
           special_md5[i.toString()] = {}
         }
-        special_md5["mirror"] = {}
         set("special_md5", special_md5)
       }
       
       if (!special_sha256) {
         special_sha256 = {}
-        for (let i=3; i<=64; i++) {
+        for (let i=1; i<=64; i++) {
           special_sha256[i.toString()] = {}
         }
-        special_sha256["mirror"] = {}
         set("special_sha256", special_sha256)
       }
       
@@ -212,15 +210,15 @@
         var m = m.toString()
         var f = CryptoJS.MD5(m).toString()
         
-        for (let i=2; i<=16; i++) {
-          if (!f.startsWith(f[0].repeat(i))) {
+        for (let i=1; i<=16; i++) {
+          if (!f.startsWith('0'.repeat(i))) {
             var same_number = i-1;
             break
           }
         }
-        if (same_number > 3) { // 앞자리 일부가 겹치면
+        if (same_number) { // 앞자리 일부가 0이라면
           if (!(m in special_md5[same_number.toString()])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (md5 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            console.log(`%c새로운 문자를 발견했습니다! (md5 앞 ${same_number}자리가 0임) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_md5[same_number.toString()][m] = f; // json에 추가
             set("special_md5", special_md5); // 저장
           }
@@ -232,15 +230,15 @@
         var m = m.toString()
         var f = SHA256(m)
         
-        for (let i=2; i<=64; i++) {
-          if (!f.startsWith(f[0].repeat(i))) {
+        for (let i=1; i<=64; i++) {
+          if (!f.startsWith('0'.repeat(i))) {
             var same_number = i-1;
             break
           }
         }
-        if (same_number > 3) { // 앞자리 일부가 겹치면
+        if (same_number) { // 앞자리 일부가 0이면
           if (!(m in special_sha256[same_number.toString()])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
+            console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 0임) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_sha256[same_number.toString()][m] = f; // json에 추가
             set("special_sha256", special_sha256); // 저장
           }
