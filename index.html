@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.1
+<html lang="ko"> 버전:2021-04-12 09:45 20.3
   <head>
     <style>
       @font-face {
         font-family: 'fontemon';
         src: url(fontemon_small.otf) format('truetype');
       }
+      * {
+        font-family: monospace;
+      }
       td {
         cursor: pointer;
       }
       table {
-        font-family: monospace;
         white-space: pre-line;
         word-break: break-all;
       }
@@ -127,15 +129,13 @@
           $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
-        var table_html = ""
         var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
         for (let i of table_items) {
           item = gksdud(i);
-          table_html += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
+          table.innerHTML += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
         }
-        table.innerHTML = table_html;
         
-        $(gksdud("#계산값")).hide();
+        $(gksdud("#계산값, #포켓몬")).hide();
         
         $(gksdud("#기본값1")).css("width", "42px");
         $(gksdud("#기본값_")).css("width", "49px"); // 224
