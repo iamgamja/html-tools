@@ -78,7 +78,7 @@
         width:100%;
         transition:800ms ease all;
       }
-    </style> 버전:2021-04-12 09:42 20
+    </style> 버전:2021-04-12 09:45 20.0
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--     한영타, 영한타 -->
     <script src="e2k-k2e.js"></script>
@@ -131,7 +131,6 @@
         var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "포켓몬"]
         for (let i of table_items) {
           item = gksdud(i);
-          table_html += `<tr id="${item}"><td id="${item}1" onclick="click_table();">${i}</td><td id="${item}2" onclick="click_table();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_table();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_table();"></td></tr>`
         }
         table.innerHTML = table_html;
         
@@ -146,14 +145,8 @@
         console.log("javaScript가 전부 로드되었습니다.");
         
         $(function() {
-          $("*").not(".custom-menu").bind("click", function(event) {
+          $("*").bind("click", function(event) {
             $(".custom-menu").remove();
-          });
-          
-          $(".custom-menu").bind("click", function(event) {
-            $("#myTextarea")[0].value = event.currentTarget.childNodes[0].nodeValue;
-            $(".custom-menu").remove();
-            main();
           });
           
           $("*").not("td, .custom-menu").bind("contextmenu", function(event) {
@@ -173,7 +166,8 @@
             $(`<div class='custom-menu'>${isS ? sha256(find_text) : md5(find_text)}</div>`)
             .appendTo("#contentMenuDiv")
             .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
-            .bind("contextmenu", right_click_event);
+            .bind("contextmenu", right_click_event)
+            .bind("click", click_event);
           }
           
           $("td, .custom-menu").bind("contextmenu", right_click_event);
@@ -337,7 +331,7 @@
         return ele.childNodes[1].nodeValue // 주석을 제외한 모든 내용
       }
       
-      function click_table() {
+      function click_event() {
         if (!event.target.id.endsWith("_")) {
           $("#myTextarea")[0].value = event.target.innerHTML;
         } else {
