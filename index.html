@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.6
+<html lang="ko"> 버전:2021-04-12 09:45 20.7
   <head>
     <style>
       @font-face {
@@ -362,7 +362,7 @@
         set_see_spoiler(event.currentTarget);
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_") && item !== event.currentTarget) {
-            set_not_see_spoiler(td);
+            set_not_see_spoiler(item);
           }
         });
         if (!event.currentTarget.id.endsWith("__")) { // md5
@@ -377,7 +377,7 @@
       function all_spoiler() {
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_")) {
-            set_not_see_spoiler(td);
+            set_not_see_spoiler(item);
           }
         });
         $(gksdud("#기본값_")).css("width", "49px");
