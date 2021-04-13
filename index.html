@@ -6,7 +6,7 @@
         font-family: 'fontemon';
         src: url(fontemon_small.otf) format('truetype');
       }
-      * {
+      :not(button#command_button) {
         font-family: monospace;
       }
       td {
@@ -417,7 +417,7 @@
     </script>
   </head>
   
-  <body id="body" onkeydown="shift_check();" onload="body_load();">
+  <body id="body" onkeydown="shift_check();" onload="body_load();"><br>
     <form>
       <div id="inputs">
         <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onfocus="this.value = this.value;"></textarea>
