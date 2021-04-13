@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.5
+<html lang="ko"> 버전:2021-04-12 09:45 20.6
   <head>
     <style>
       @font-face {
@@ -360,15 +360,11 @@
       
       function see_spoiler() {
         set_see_spoiler(event.currentTarget);
-        var trs = $("#table")[0].childNodes[0].childNodes; // tr 여러개
-        for (let tr of trs) {
-          var tds = tr.childNodes; // td 2개
-          for (let td of tds) {
-            if (td.id.endsWith("_") && td !== event.currentTarget) {
-              set_not_see_spoiler(td);
-            }
+        $("#table td").each(function (index, item) {
+          if (item.id.endsWith("_") && item !== event.currentTarget) {
+            set_not_see_spoiler(td);
           }
-        }
+        });
         if (!event.currentTarget.id.endsWith("__")) { // md5
           $(gksdud("#기본값_")).css("width", "224px");
           $(gksdud("#기본값__")).css("width", "49px");
@@ -379,15 +375,11 @@
       }
       
       function all_spoiler() {
-        var trs = table.childNodes[0].childNodes; // tr 여러개
-        for (let tr of trs) {
-          var tds = tr.childNodes; // td 2개
-          for (let td of tds) {
-            if (td.id.endsWith("_")) {
-              set_not_see_spoiler(td);
-            }
+        $("#table td").each(function (index, item) {
+          if (item.id.endsWith("_")) {
+            set_not_see_spoiler(td);
           }
-        }
+        });
         $(gksdud("#기본값_")).css("width", "49px");
         $(gksdud("#기본값__")).css("width", "49px");
       }
