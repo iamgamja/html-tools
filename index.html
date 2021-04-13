@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-12 09:45 20.7
+<html lang="ko"> 버전:2021-04-12 09:45 20.9
   <head>
     <style>
       @font-face {
@@ -224,12 +224,6 @@
             special_md5[same_number.toString()][m] = f; // json에 추가
             set("special_md5", special_md5); // 저장
           }
-        } else if (f.split("").reverse().join("") === f) { // 뒤집어도 같다면
-          if (!(m in special_md5["mirror"])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (md5 뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
-            special_md5["mirror"][m] = f; // json에 추가
-            set("special_md5", special_md5); // 저장
-          }
         }
         return f
       }
@@ -248,12 +242,6 @@
           if (!(m in special_sha256[same_number.toString()])) { // 새로운 문자라면
             console.log(`%c새로운 문자를 발견했습니다! (sha256 앞 ${same_number}자리가 겹침) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
             special_sha256[same_number.toString()][m] = f; // json에 추가
-            set("special_sha256", special_sha256); // 저장
-          }
-        } else if (f.split("").reverse().join("") === f) { // 뒤집어도 같다면
-          if (!(m in special_sha256["mirror"])) { // 새로운 문자라면
-            console.log(`%c새로운 문자를 발견했습니다! (sha256 뒤집어도 같음) %c\n${m} => \n${f}`, "background:lime;color:green;", "background:white;color:black;"); // 알려주고
-            special_sha256["mirror"][m] = f; // json에 추가
             set("special_sha256", special_sha256); // 저장
           }
         }
@@ -351,7 +339,6 @@
         ele.innerHTML = `<!--${c2}-->${c1}`
       }
       function set_not_see_spoiler(ele) {
-        console.log("set_not_see_spoiler function is running... ele is " + ele);
         var c1 = get_c1(ele)
         var c2 = get_c2(ele)
         if (c1.length > c2.length) return; // 이미 안보인다면 리턴
