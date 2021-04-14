@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.06
+<html lang="ko"> 버전:2021-04-14 08:23 21.07
   <head>
     <style>
       @font-face {
@@ -198,35 +198,39 @@
         if (m.startsWith("/")) {
           m = m.slice(1).split(' ');
 
-          var is_command = true; // 지역변수, 커맨드가 사용되었는지 나타내는 변수
-          if (m[0].startsWith("h")) { // hide
-            $('#'+m[1]).hide();
-          } else if (m[0].startsWith("s")) { // show
-            $('#'+m[1]).show();
-          } else if (m[0].startsWith("t")) { // toggle
-            $('#'+m[1]).toggle();
-          } else if (m[0].startsWith("r")) { // right click setting
-            if (m[1].startsWith("s")) { // sha256
-              isS = true;
-            } else if (m[1].startsWith("m")) { // md5
-              isS = false;
-            } else if (m[1].startsWith("t")) { // toggle
-              isS = !isS;
-            } else { // not command
-              is_command = false;
+          if (m[0].startsWith("see")) { // see
+            if (m[1].startsWith("hide")) { // hide
+              $(m[2]).hide();
+            } else if (m[1].startsWith("show")) { // show
+              $(m[2]).show();
+            } else if (m[1].startsWith("toggle")) { // toggle
+              $(m[2]).toggle();
             }
-          } else { // not command
-            is_command = false;
+          } else if (m[0].startsWith("hash")) { // right click setting
+            if (m[1].startsWith("sha")) { // sha256
+              isS = true;
+            } else if (m[1].startsWith("md")) { // md5
+              isS = false;
+            } else if (m[1].startsWith("toggle")) { // toggle
+              isS = !isS;
+            }
+          } else if (m[0].startsWith("ele")) { // new elements
+            if (m[1].startsWith("add")) { // add
+              $("div#add_elements").append(m[2]);
+            } else if (m[1].startsWith("del")) { // delete
+              $("m[1]").remove();
+            } else if (m[1].startsWith("reset")) { // reset
+              $("div#add_elements").empty();
+            }
           }
-          if (is_command) { // 커맨드를 실행했다면
-            $("#myTextarea").animate({
-              backgroundColor: '#ffff00'
-            }, 200, 'swing', function() {
-              $(this).animate({
-                backgroundColor: '#ffffff'
-              }, 900);
-            });
-          }
+          // animate
+          $("#myTextarea").animate({
+            backgroundColor: '#ffff00'
+          }, 200, 'swing', function() {
+            $(this).animate({
+              backgroundColor: '#ffffff'
+            }, 900);
+          });
         }
       }
       
@@ -333,7 +337,7 @@
       </div> <br>
     </form>
     <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
-    <br><br><br>
+    <div id="add_elements"><div>
     <div id="contentMenuDiv"></div>
   </body>
 </html>
