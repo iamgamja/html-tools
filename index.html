@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.00
+<html lang="ko"> 버전:2021-04-14 08:23 21.01
   <head>
     <style>
       @font-face {
@@ -203,9 +203,17 @@
       }
 
       function set_table(table_id, value) {
-        $('#'+gksdud(table_id)+'2')[0].innerHTML = value;
-        $('#'+gksdud(table_id)+'_')[0].innerHTML = `<!--${md5(value)}-->${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`;
-        $('#'+gksdud(table_id)+'__')[0].innerHTML = `<!--${sha256(value)}-->${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`;
+        $('#'+gksdud(table_id)+'2').text(value);
+        
+        $('#'+gksdud(table_id)+'_')
+          .attr("shortHASH", `${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`)
+          .attr("longHASH", md5(value))
+          .text(this.attr("shortHASH"));
+        
+        $('#'+gksdud(table_id)+'__')
+          .attr("shortHASH", `${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`)
+          .attr("longHASH", sha256(value))
+          .text(this.attr("shortHASH"));
       }
       
       function command_check() {
@@ -260,43 +268,22 @@
         }
       }
       
-      function get_c1(ele) {
-        return ele.childNodes[0].nodeValue // 주석 내용
-      }
-      function get_c2(ele) {
-        return ele.childNodes[1].nodeValue // 주석을 제외한 모든 내용
-      }
       
       function click_event() {
-        if (!event.target.id.endsWith("_")) {
-          $("#myTextarea")[0].value = event.target.innerHTML;
+        if (!event.currenttarget.id.endsWith("_")) {
+          $("#myTextarea").val($(event.currentTarget).html());
         } else {
-          var c1 = get_c1(event.target)
-          var c2 = get_c2(event.target)
-          $("#myTextarea")[0].value = c1.length > c2.length ? c1 : c2 // 더 긴(원래 hash) 값을 넣는다
+          $("#myTextarea").val($(event.currentTarget).attr('longHASH'));
         }
         main();
         $("#myTextarea")[0].focus();
       }
       
-      function set_see_spoiler(ele) {
-        var c1 = get_c1(ele)
-        var c2 = get_c2(ele)
-        if (c1.length < c2.length) return; // 이미 보인다면 리턴
-        ele.innerHTML = `<!--${c2}-->${c1}`
-      }
-      function set_not_see_spoiler(ele) {
-        var c1 = get_c1(ele)
-        var c2 = get_c2(ele)
-        if (c1.length > c2.length) return; // 이미 안보인다면 리턴
-        ele.innerHTML = `<!--${c2}-->${c1}`
-      }
-      
       function see_spoiler() {
-        set_see_spoiler(event.currentTarget);
+        $(event.currentTarget).html(this.attr('longHASH'));
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_") && item !== event.currentTarget) {
-            set_not_see_spoiler(item);
+            $(item).html(this.attr('shortHASH'));
           }
         });
         if (!event.currentTarget.id.endsWith("__")) { // md5
@@ -311,7 +298,7 @@
       function all_spoiler() {
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_")) {
-            set_not_see_spoiler(item);
+            $(item).html(this.attr('shortHASH'));
           }
         });
         $(gksdud("#기본값_")).css("width", "49px");
@@ -319,7 +306,7 @@
       }
 
       function main() {
-        var m = $("#myTextarea")[0].value || "";
+        var m = $("#myTextarea").val() || "";
 
         set_table("기본값", m);
         set_table("글자수", m.length || "");
