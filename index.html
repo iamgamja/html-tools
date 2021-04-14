@@ -295,7 +295,7 @@
       function all_spoiler() {
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_")) {
-            $(item).html(this.attr('shortHASH'));
+            $(item).html($(this).attr('shortHASH'));
           }
         });
         $(gksdud("#기본값_")).css("width", "49px");
