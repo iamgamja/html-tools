@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.05
+<html lang="ko"> 버전:2021-04-14 08:23 21.06
   <head>
     <style>
       @font-face {
@@ -246,11 +246,7 @@
       }
       
       function click_event() {
-        if (event.currenttarget.id.endsWith("_")) {
-          $("#myTextarea").val($(event.currentTarget).attr('longHASH'));
-        } else {
-          $("#myTextarea").val($(event.currentTarget).html());
-        }
+        $("#myTextarea").val($(event.currentTarget).attr('longHASH') || $(event.currentTarget).text());
         main();
         $("#myTextarea")[0].focus();
       }
