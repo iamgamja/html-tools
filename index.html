@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.02
+<html lang="ko"> 버전:2021-04-14 08:23 21.03
   <head>
     <style>
       @font-face {
@@ -280,7 +280,7 @@
         $(event.currentTarget).html($(this).attr('longHASH'));
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_") && item !== event.currentTarget) {
-            $(item).html(this.attr('shortHASH'));
+            $(item).html($(this).attr('shortHASH'));
           }
         });
         if (!event.currentTarget.id.endsWith("__")) { // md5
