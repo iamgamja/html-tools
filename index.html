@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.01
+<html lang="ko"> 버전:2021-04-14 08:23 21.02
   <head>
     <style>
       @font-face {
@@ -175,24 +175,20 @@
         });
       }
       
-      function set(id, value) {
-        return localStorage.setItem(id, JSON.stringify(value))
-      }
-      function get(id) {
-        return JSON.parse(localStorage.getItem(id))
-      }
+//       function set(id, value) {
+//         return localStorage.setItem(id, JSON.stringify(value))
+//       }
+//       function get(id) {
+//         return JSON.parse(localStorage.getItem(id))
+//       }
       
       function md5(m) {
-        var m = m.toString()
-        var f = CryptoJS.MD5(m).toString()
-        return f
+        return CryptoJS.MD5(m.toString()).toString();
       }
       
       
       function sha256(m) {
-        var m = m.toString()
-        var f = SHA256(m)
-        return f
+        return SHA256(m.toString());
       }
       
       function chr(n) {
@@ -203,21 +199,22 @@
       }
 
       function set_table(table_id, value) {
-        $('#'+gksdud(table_id)+'2').text(value);
+        var value = value || "";
+        $(gksdud(`#${table_id}2`)).text(value);
         
-        $('#'+gksdud(table_id)+'_')
+        $(gksdud(`#${table_id}_`))
           .attr("shortHASH", `${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`)
           .attr("longHASH", md5(value))
-          .text(this.attr("shortHASH"));
+          .text($(this).attr("shortHASH"));
         
-        $('#'+gksdud(table_id)+'__')
+        $(gksdud(`#${table_id}__`))
           .attr("shortHASH", `${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`)
           .attr("longHASH", sha256(value))
-          .text(this.attr("shortHASH"));
+          .text($(this).attr("shortHASH"));
       }
       
       function command_check() {
-        var m = gksdud($("#myTextarea")[0].value);
+        var m = gksdud($("#myTextarea").val());
         if (m.startsWith("/")) {
           m = m.slice(1).split(' ');
 
@@ -270,17 +267,17 @@
       
       
       function click_event() {
-        if (!event.currenttarget.id.endsWith("_")) {
-          $("#myTextarea").val($(event.currentTarget).html());
-        } else {
+        if (event.currenttarget.id.endsWith("_")) {
           $("#myTextarea").val($(event.currentTarget).attr('longHASH'));
+        } else {
+          $("#myTextarea").val($(event.currentTarget).html());
         }
         main();
         $("#myTextarea")[0].focus();
       }
       
       function see_spoiler() {
-        $(event.currentTarget).html(this.attr('longHASH'));
+        $(event.currentTarget).html($(this).attr('longHASH'));
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_") && item !== event.currentTarget) {
             $(item).html(this.attr('shortHASH'));
@@ -309,13 +306,13 @@
         var m = $("#myTextarea").val() || "";
 
         set_table("기본값", m);
-        set_table("글자수", m.length || "");
+        set_table("글자수", m.length);
         set_table("한영타", gksdud(m));
         set_table("영한타", dudgks(m));
         set_table("영한영", gksdud(dudgks(m)));
         set_table("한영한", dudgks(gksdud(m)));
         set_table("반대로", m.split("").reverse().join(""));
-        set_table("첫번째", m[0] || "");
+        set_table("첫번째", m[0]);
         set_table("마지막", m.slice(-1));
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
           try {
