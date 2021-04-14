@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.04
+<html lang="ko"> 버전:2021-04-14 08:23 21.05
   <head>
     <style>
       @font-face {
@@ -192,23 +192,6 @@
       function ord(s) {
         return s.charCodeAt(0)
       }
-
-      function set_table(table_id, value) {
-        var value = value || "";
-        $(gksdud(`#${table_id}2`)).text(value);
-        
-        $(gksdud(`#${table_id}_`))
-          .attr("shortHASH", `${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`)
-          .attr("longHASH", md5(value))
-          .text($(this).attr("shortHASH"));
-        set_not_see($(gksdud(`#${table_id}_`)));
-        
-        $(gksdud(`#${table_id}__`))
-          .attr("shortHASH", `${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`)
-          .attr("longHASH", sha256(value))
-          .text($(this).attr("shortHASH"));
-        set_not_see($(gksdud(`#${table_id}__`)));
-      }
       
       function command_check() {
         var m = gksdud($("#myTextarea").val());
@@ -273,10 +256,10 @@
       }
       
       function set_see(ele) {
-        $(ele).html($(this).attr('longHASH'));
+        $(ele).text($(ele).attr('longHASH'));
       }
       function set_not_see(ele) {
-        $(ele).html($(this).attr('shortHASH'));
+        $(ele).text($(ele).attr('shortHASH'));
       }
       
       function see_spoiler() {
@@ -303,6 +286,21 @@
         });
         $(gksdud("#기본값_")).css("width", "49px");
         $(gksdud("#기본값__")).css("width", "49px");
+      }
+      
+      function set_table(table_id, value) {
+        var value = value || "";
+        $(gksdud(`#${table_id}2`)).text(value);
+        
+        $(gksdud(`#${table_id}_`))
+          .attr("shortHASH", `${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`)
+          .attr("longHASH", md5(value));
+        set_not_see($(gksdud(`#${table_id}_`)));
+        
+        $(gksdud(`#${table_id}__`))
+          .attr("shortHASH", `${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`)
+          .attr("longHASH", sha256(value));
+        set_not_see($(gksdud(`#${table_id}__`)));
       }
 
       function main() {
