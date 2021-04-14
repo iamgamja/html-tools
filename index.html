@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.03
+<html lang="ko"> 버전:2021-04-14 08:23 21.04
   <head>
     <style>
       @font-face {
@@ -154,16 +154,11 @@
           function right_click_event(event) {
             event.preventDefault();
             
-            var find_text = ""; // 초기화
-            if (event.currentTarget.childNodes[1]) {
-              find_text = event.currentTarget.childNodes[1].nodeValue;
-            } else if (event.currentTarget.childNodes[0]) {
-              find_text = event.currentTarget.childNodes[0].nodeValue;
-            }
+            var find_text = $(event.currentTarget).attr('longHASH') || $(event.currentTarget).text()
             
             $(`<div class='custom-menu'>${isS ? sha256(find_text) : md5(find_text)}</div>`)
             .appendTo("#contentMenuDiv")
-            .css({top: (event.pageY) + "px", left: (event.pageX + "px")})
+            .css({top: `${event.pageY}px`, left: `${event.pageX}px`})
             .bind("contextmenu", right_click_event)
             .bind("click", click_event);
           }
@@ -206,11 +201,13 @@
           .attr("shortHASH", `${md5(value).slice(0, 2)}...${md5(value).slice(-2)}`)
           .attr("longHASH", md5(value))
           .text($(this).attr("shortHASH"));
+        set_not_see($(gksdud(`#${table_id}_`)));
         
         $(gksdud(`#${table_id}__`))
           .attr("shortHASH", `${sha256(value).slice(0, 2)}...${sha256(value).slice(-2)}`)
           .attr("longHASH", sha256(value))
           .text($(this).attr("shortHASH"));
+        set_not_see($(gksdud(`#${table_id}__`)));
       }
       
       function command_check() {
@@ -265,7 +262,6 @@
         }
       }
       
-      
       function click_event() {
         if (event.currenttarget.id.endsWith("_")) {
           $("#myTextarea").val($(event.currentTarget).attr('longHASH'));
@@ -276,11 +272,18 @@
         $("#myTextarea")[0].focus();
       }
       
+      function set_see(ele) {
+        $(ele).html($(this).attr('longHASH'));
+      }
+      function set_not_see(ele) {
+        $(ele).html($(this).attr('shortHASH'));
+      }
+      
       function see_spoiler() {
-        $(event.currentTarget).html($(this).attr('longHASH'));
+        set_see(event.currentTarget);
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_") && item !== event.currentTarget) {
-            $(item).html($(this).attr('shortHASH'));
+            set_not_see(item);
           }
         });
         if (!event.currentTarget.id.endsWith("__")) { // md5
@@ -295,7 +298,7 @@
       function all_spoiler() {
         $("#table td").each(function (index, item) {
           if (item.id.endsWith("_")) {
-            $(item).html($(this).attr('shortHASH'));
+            set_not_see(item)
           }
         });
         $(gksdud("#기본값_")).css("width", "49px");
