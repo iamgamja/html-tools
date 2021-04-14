@@ -214,15 +214,15 @@
             } else if (m[1].startsWith("toggle")) { // toggle
               isS = !isS;
             }
-          } else if (m[0].startsWith("ele")) { // new elements
-            if (m[1].startsWith("add")) { // add
-              $("#add_elements").append(m.slice(2).join(' '));
-            } else if (m[1].startsWith("del")) { // delete
-              $(m[1]).remove();
-            } else if (m[1].startsWith("clear")) { // clear
-              $("div#add_elements").empty();
-            }
           }
+//           } else if (m[0].startsWith("ele")) { // new elements
+//             if (m[1].startsWith("add")) { // add
+//               $("#add_elements").append(m.slice(2).join(' '));
+//             } else if (m[1].startsWith("del")) { // delete
+//               $(m[2]).remove();
+//             } else if (m[1].startsWith("clear")) { // clear
+//               $("div#add_elements").empty();
+//             }
           // animate
           $("#myTextarea").animate({
             backgroundColor: '#ffff00'
