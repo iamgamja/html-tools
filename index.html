@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.20
+<html lang="ko"> 버전:2021-04-15 12:17 21.21
   <head>
     <style>
       @font-face {
@@ -131,7 +131,7 @@
           $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
-        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음"]
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수"]
         for (let i of table_items) {
           item = gksdud(i);
           table.innerHTML += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
@@ -320,9 +320,9 @@
         set_table("첫번째", m[0]);
         set_table("마지막", m.slice(-1));
         set_table("폰트몬", m);
-        set_table("이전수", parseInt(m)-1);
-        set_table("현재수", parseInt(m));
-        set_table("다음수", parseInt(m)+1);
+        set_table("이전수", (parseInt(m)-1)).toFixed();
+        set_table("현재수", (parseInt(m)+0)).toFixed();
+        set_table("다음수", (parseInt(m)+1)).toFixed();
         
         
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
