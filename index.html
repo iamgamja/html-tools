@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-14 08:23 21.13
+<html lang="ko"> 버전:2021-04-15 12:17 21.14
   <head>
     <style>
       @font-face {
@@ -214,15 +214,16 @@
             } else if (m[1].startsWith("toggle")) { // toggle
               isS = !isS;
             }
-          }
-//           } else if (m[0].startsWith("ele")) { // new elements
-//             if (m[1].startsWith("add")) { // add
-//               $("#add_elements").append(m.slice(2).join(' '));
-//             } else if (m[1].startsWith("del")) { // delete
-//               $(m[2]).remove();
-//             } else if (m[1].startsWith("clear")) { // clear
-//               $("div#add_elements").empty();
-//             }
+          } else if (m[0].startsWith("ele")) { // new elements
+            if (m[1].startsWith("add")) { // add
+              $("#add_elements").append(`<${m[2]} id="${m[3]}">${m[4]}</${m[2]}`);
+            } else if (m[1].startsWith("css")) { // css
+              $(m[2]).css(m[3], m[4]);
+            } else if (m[1].startsWith("del")) { // delete
+              $(m[2]).remove();
+            } else if (m[1].startsWith("clear")) { // clear
+              $("div#add_elements").empty();
+            }
           // animate
           $("#myTextarea").animate({
             backgroundColor: '#ffff00'
