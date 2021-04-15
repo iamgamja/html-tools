@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.16
+<html lang="ko"> 버전:2021-04-15 12:17 21.17
   <head>
     <style>
       @font-face {
@@ -216,7 +216,7 @@
             }
           } else if (m[0].startsWith("ele")) { // new elements
             if (m[1].startsWith("add")) { // add
-              $("#add_elements").append(`<${m[2]} id="${m[3]}">${m[4]}</${m[2]}`);
+              $("#add_elements").append(`<${m[2]} id="${m[3].replaceAll('"', '')}">${m[4]}</${m[2]}`);
             } else if (m[1].startsWith("css")) { // css
               $(m[2]).css(m[3], m[4]);
             } else if (m[1].startsWith("del")) { // delete
