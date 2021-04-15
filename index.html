@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.17
+<html lang="ko"> 버전:2021-04-15 12:17 21.19
   <head>
     <style>
       @font-face {
@@ -37,6 +37,7 @@
       }
       
       #myTextarea {
+        display: none;
         margin: 1px;
         width: 50%;
       }
@@ -118,6 +119,10 @@
         } else {
           alert("오류: 어떤 플랫폼으로 접속했는지 알 수 없음");
         }
+        
+        $("#myTextarea").show();
+        $("#myTextarea")[0].focus();
+        
         $("#inputs").css("height", `${Number($("#myTextarea").css("height").slice(0, -2))+6}px`) // margin, padding 길이(총 6px)만큼 추가.
         
         // table setting
@@ -126,7 +131,7 @@
           $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
-        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬"]
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영타", "한영한타", "반대로", "첫번째 글자", "마지막 글자", "계산값", "폰트몬", "이전 정수", "현재 정수", "다음 정수"]
         for (let i of table_items) {
           item = gksdud(i);
           table.innerHTML += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
@@ -139,8 +144,6 @@
         $(gksdud("#기본값__")).css("width", "49px"); // 448
         
         main();
-        
-        console.log("javaScript가 전부 로드되었습니다.");
         
         $(function() {
           $("*").bind("click", function(event) {
@@ -165,7 +168,7 @@
           
           $("td, .custom-menu").bind("contextmenu", right_click_event);
           
-          console.log("jQuery가 전부 로드되었습니다.");
+          console.log("script가 전부 로드되었습니다.");
 
         });
       }
@@ -216,11 +219,11 @@
             }
           } else if (m[0].startsWith("ele")) { // new elements
             if (m[1].startsWith("add")) { // add
-              $("#add_elements").append(`<${m[2]} id="${m[3].replaceAll('"', '')}">${m[4]}</${m[2]}`);
+              $("div#add_elements").append(`<${m[2]} id="${m[3].replaceAll('"', '')}">${m[4]}</${m[2]}`);
             } else if (m[1].startsWith("css")) { // css
-              $(m[2]).css(m[3], m[4]);
+              $(`div#add_elements ${m[2]}`).css(m[3], m[4]);
             } else if (m[1].startsWith("del")) { // delete
-              $(m[2]).remove();
+              $(`div#add_elements ${m[2]}`).remove();
             } else if (m[1].startsWith("clear")) { // clear
               $("div#add_elements").empty();
             }
@@ -311,11 +314,17 @@
         set_table("글자수", m.length);
         set_table("한영타", gksdud(m));
         set_table("영한타", dudgks(m));
-        set_table("영한영", gksdud(dudgks(m)));
-        set_table("한영한", dudgks(gksdud(m)));
+        set_table("영한영타", gksdud(dudgks(m)));
+        set_table("한영한타", dudgks(gksdud(m)));
         set_table("반대로", m.split("").reverse().join(""));
-        set_table("첫번째", m[0]);
-        set_table("마지막", m.slice(-1));
+        set_table("첫번째 글자", m[0]);
+        set_table("마지막 글자", m.slice(-1));
+        set_table("폰트몬", m);
+        set_table("이전 정수", parseInt(m)-1);
+        set_table("현재 정수", parseInt(m));
+        set_table("다음 정수", parseInt(m)+1);
+        
+        
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
           try {
             set_table("계산값", m ? math.evaluate(m) : "");
@@ -325,7 +334,6 @@
         } else { // 기본 틀은 맞춰야 하기 때문에 빈 값 세팅
           set_table("계산값", "");
         }
-        set_table("폰트몬", m);
       }
     </script>
   </head>
@@ -333,12 +341,12 @@
   <body id="body" onkeydown="shift_check();" onload="body_load();"><br>
     <form>
       <div id="inputs">
-        <textarea id="myTextarea" autofocus placeholder="입력해보세요!" oninput="main();" onfocus="this.value = this.value;"></textarea>
+        <textarea id="myTextarea" placeholder="입력해보세요!" oninput="main();" onfocus="this.value = this.value;"></textarea>
         <button id="command_button" type="button" onclick="command_check();" style="display: none;">click here!</button>
       </div> <br>
     </form>
-    <table id="table" border="1" onmouseleave="all_spoiler();"> </table>
-    <div id="add_elements"></div>
-    <div id="contentMenuDiv"></div>
+    <table id="table" border="1" onmouseleave="all_spoiler();"></table><br>
+    <div id="add_elements"></div><br>
+    <div id="contentMenuDiv"></div><br>
   </body>
 </html>
