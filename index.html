@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.22
+<html lang="ko"> 버전:2021-04-15 12:17 21.23
   <head>
     <style>
       @font-face {
@@ -180,6 +180,31 @@
 //         return JSON.parse(localStorage.getItem(id))
 //       }
       
+      function true_calculator(s1, p, s2) {
+        // true_calculator(m, '+', '1')
+        if (s2.length !== 1) throw new Error(["더하거나 빼는 수는 한자리이여야 합니다.", s1, p, s2]);
+        if (s1.length === 0) return s2;
+        if (p === '+') { // 덧셈이다
+          if (parseInt(s1.slice(-1)) + parseInt(s2) > 9) { // 마지막자리끼리 더했더니 9보다 크다 = 마지막 둘째자리에 1을 더한다
+            return true_calculator(s1.slice(0, -1), '+', '1') +''+ (parseInt(s1.slice(-1)) + parseInt(s2) - 10)
+            //     ^앞자리에 1을 더한 것과                           ^마지막자리끼리 더한 수-10 (최종 1의 자리)
+          } else { // 아니면 그냥 뒷자리끼리만 계산
+            return s1.slice(0, -1) +''+ (parseInt(s1.slice(-1)) + parseInt(s2))
+            //     ^앞자리는 그대로       ^뒷자리끼리만 계산
+          }
+        } else if (p === '-') { // 뺄셈이다
+          if (parseInt(s1.slice(-1)) - parseInt(s2) < 0) { // 마지막자리끼리 뺐더니 0보다 작다 = 마지막 둘째자리에 1을 뺀다
+            return true_calculator(s1.slice(0, -1), '-', '1') +''+ (parseInt(s1.slice(-1)) - parseInt(s2) + 10)
+            //     ^앞자리에 1을 뺀 것과                             ^마지막자리끼리 뺀 수+10 (최종 1의 자리)
+          } else { // 아니면 그냥 뒷자리끼리만 계산
+            return s1.slice(0, -1) +''+ (parseInt(s1.slice(-1)) - parseInt(s2))
+            //     ^앞자리는 그대로       ^뒷자리끼리만 계산
+          }
+        } else { // 지원하지 않는 기호
+          throw new Error(["지원하지 않는 기호입니다", s1, p, s2]);
+        }
+      }
+      
       function md5(m) {
         return CryptoJS.MD5(m.toString()).toString();
       }
@@ -320,9 +345,9 @@
         set_table("첫번째", m[0]);
         set_table("마지막", m.slice(-1));
         set_table("폰트몬", m);
-        set_table("이전수", (parseInt(m)-1).toFixed());
-        set_table("현재수", (parseInt(m)+0).toFixed());
-        set_table("다음수", (parseInt(m)+1).toFixed());
+        set_table("이전수", true_calculator(m, '+', '1'));
+        set_table("현재수", true_calculator(m, '+', '0'));
+        set_table("다음수", true_calculator(m, '-', '1'));
         
         
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
