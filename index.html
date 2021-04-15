@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.23
+<html lang="ko"> 버전:2021-04-15 12:17 21.24
   <head>
     <style>
       @font-face {
@@ -345,9 +345,9 @@
         set_table("첫번째", m[0]);
         set_table("마지막", m.slice(-1));
         set_table("폰트몬", m);
-        set_table("이전수", true_calculator(m, '+', '1'));
-        set_table("현재수", true_calculator(m, '+', '0'));
-        set_table("다음수", true_calculator(m, '-', '1'));
+        set_table("이전수", m ? true_calculator(m, '-', '1') : '');
+        set_table("현재수", m ? true_calculator(m, '+', '0') : '');
+        set_table("다음수", m ? true_calculator(m, '+', '1') : '');
         
         
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
