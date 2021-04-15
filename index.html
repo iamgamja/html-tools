@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.24
+<html lang="ko"> 버전:2021-04-15 12:17 21.25
   <head>
     <style>
       @font-face {
@@ -318,7 +318,7 @@
       }
       
       function set_table(table_id, value) {
-        var value = value || "";
+        if (value === undefined) value = ""
         $(gksdud(`#${table_id}2`)).text(value);
         
         $(gksdud(`#${table_id}_`))
@@ -352,7 +352,7 @@
         
         if ($(gksdud("#계산값")).css("display") !== "none") { // 계산값 줄 자체가 보이지 않는다면 굳이 할필요 없음
           try {
-            set_table("계산값", m ? math.evaluate(m) : "");
+            set_table("계산값", math.evaluate(m));
           } catch(e) {
             set_table("계산값", e);
           }
