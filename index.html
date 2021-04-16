@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-15 12:17 21.29
+<html lang="ko"> 버전:2021-04-16 12:52 21.30
   <head>
     <style>
       @font-face {
@@ -131,7 +131,7 @@
           $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
         }
         
-        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수"]
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "n-1", "n", "n+1", "sin", "cos", "tan", "asin", "acos", "atan"]
         for (let i of table_items) {
           item = gksdud(i);
           table.innerHTML += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
@@ -357,11 +357,17 @@
         set_table("한영한", dudgks(gksdud(m)));
         set_table("반대로", m.split("").reverse().join(""));
         set_table("첫번째", m[0]);
-        set_table("마지막", m.slice(-1));
+        set_table("", m.slice(-1));
         set_table("폰트몬", m);
-        set_table("이전수", m ? true_calculator(m, '-', '1') : '');
-        set_table("현재수", m ? true_calculator(m, '+', '0') : '');
-        set_table("다음수", m ? true_calculator(m, '+', '1') : '');
+        set_table("n-1", m ? true_calculator(m, '-', '1') : '');
+        set_table("n", m ? true_calculator(m, '+', '0') : '');
+        set_table("n+1", m ? true_calculator(m, '+', '1') : '');
+        set_table("sin", Math.sin(m));
+        set_table("cos", Math.cos(m));
+        set_table("tan", Math.tan(m));
+        set_table("asin", Math.asin(m));
+        set_table("acos", Math.acos(m));
+        set_table("atan", Math.atan(m));
         
         try {
           set_table("계산값", math.evaluate(m));
