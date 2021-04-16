@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-16 12:52 21.31
+<html lang="ko"> 버전:2021-04-16 12:52 21.32
   <head>
     <style>
       @font-face {
@@ -362,12 +362,12 @@
         set_table("이전수", m ? true_calculator(m, '-', '1') : '');
         set_table("현재수", m ? true_calculator(m, '+', '0') : '');
         set_table("다음수", m ? true_calculator(m, '+', '1') : '');
-        set_table("sin", Math.sin(m));
-        set_table("cos", Math.cos(m));
-        set_table("tan", Math.tan(m));
-        set_table("asin", Math.asin(m));
-        set_table("acos", Math.acos(m));
-        set_table("atan", Math.atan(m));
+        set_table("sin", m ? Math.sin(m) : "");
+        set_table("cos", m ? Math.cos(m) : "");
+        set_table("tan", m ? Math.tan(m) : '");
+        set_table("asin", m ? Math.asin(m) : "");
+        set_table("acos", m ?  Math.acos(m) : "");
+        set_table("atan", m ? Math.atan(m) : "");
         
         try {
           set_table("계산값", math.evaluate(m));
