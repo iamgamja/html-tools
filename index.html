@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.44</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.45</title>
   <head>
     <style>
       @font-face {
@@ -124,13 +124,7 @@
         $("#myTextarea")[0].focus();
         
         $("#inputs").css("height", `${Number($("#myTextarea").css("height").slice(0, -2))+6}px`) // margin, padding 길이(총 6px)만큼 추가.
-        
-        // table setting
-        $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
-        window.onresize = function() {
-          $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
-        }
-        
+                
         var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수", "d2r", "r2d", "sin_d", "cos_d", "tan_d", "asin_d", "acos_d", "atan_d", "sin_r", "cos_r", "tan_r", "asin_r", "acos_r", "atan_r"]
         for (let i of table_items) {
           item = gksdud(i);
@@ -168,8 +162,13 @@
           
           $("td, .custom-menu").bind("contextmenu", right_click_event);
           
+          
+          // table setting
+          $("#table").css("width", `${body.offsetWidth}px`); // 먼저 한번 설정하고 
+          window.onresize = function() {
+            $("#table").css("width", `${body.offsetWidth}px`); // 바뀔때마다 설정하기
+          }
           console.log("script가 전부 로드되었습니다.");
-
         });
       }
       
