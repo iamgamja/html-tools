@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.48</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.49</title>
   <head>
     <style>
       @font-face {
@@ -188,21 +188,21 @@
 //       }
       
       function true_calculator(s1, p, s2) {
-        // true_calculator(m, '+', '1') 형태로 사용
-        if (s2.length !== 1 ||
-            typeof s1 !== "string" || typeof s2 !== "string" ||
+        if (typeof s1 !== "string" || typeof s2 !== "string" ||
             /\D/.test(s1) || /\D/.test(s2)) {
           return NaN; // 입력값이 올바르지 않다면 NaN 출력
         }
         s1 = s1.replace(/^0+(?=.)/, ""); // 왼쪽0제거
-        // 만약 js로 정확하게 계산할 수 있다면, 계산합니다.
-        // js는 -9007199254740991 ~ 9007199254740991 까지의 수를 정확하게 계산할 수 있습니다.
-        // 하지만 편의를 위해 -9000000000000000 ~ 9000000000000000 범위 내에 있을때만 js로 계산합니다.
-        if (-9000000000000000 < s1 && s1 < 9000000000000000) return String(Number(s1) + Number(p+s2)).replace(/^0+(?=.)/, "") // 왼쪽0
         
-        // 만약 js로 정확하게 계산할 수 없다면, 직접 계산합니다.
         if (p === '+') { // 덧셈이다
+          // 만약 js로 정확하게 계산할 수 있다면, 계산합니다.
+          // js는 -9007199254740991 ~ 9007199254740991 까지의 수를 정확하게 계산할 수 있습니다.
+          // 하지만 편의를 위해 -9000000000000000 ~ 9000000000000000 범위 내에 있을때만 js로 계산합니다.
+          if (-9000000000000000 < (Number(s1)+Number(s2)) && (Number(s1)+Number(s2)) < 9000000000000000) return String(Number(s1)+Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0
+
+          // 만약 js로 정확하게 계산할 수 없다면, 직접 계산합니다.
           if (s1.length === 0) return (s2).replace(/^0+(?=.)/, ""); // 앞자리가 비어있는데 올라갔다, 0 -> 1을 하므로 더한 수 반환, 왼쪽0제거
+          if (s2.length !== 1) return true_calculator((true_calculator(s1.slice(0, -1), '+', s2.slice(0, -1)) + s1.slice(-1)), '+', s2.slice(-1)) // 앞자리끼리 계산, 뒤에 붙이고 다시 계산.
           if (parseInt(s1.slice(-1)) + parseInt(s2) > 9) { // 마지막자리끼리 더했더니 9보다 크다 = 마지막 둘째자리에 1을 더한다
             return (true_calculator(s1.slice(0, -1), '+', '1') +''+ (parseInt(s1.slice(-1)) + parseInt(s2) - 10)).replace(/^0+(?=.)/, "")
             //     ^앞자리에 1을 더한 것과                           ^마지막자리끼리 더한 수-10 (최종 1의 자리)       왼쪽0제거
@@ -211,7 +211,14 @@
             //     ^앞자리는 그대로       ^뒷자리끼리만 계산                        왼쪽0제거
           }
         } else if (p === '-') { // 뺄셈이다
+          // 만약 js로 정확하게 계산할 수 있다면, 계산합니다.
+          // js는 -9007199254740991 ~ 9007199254740991 까지의 수를 정확하게 계산할 수 있습니다.
+          // 하지만 편의를 위해 -9000000000000000 ~ 9000000000000000 범위 내에 있을때만 js로 계산합니다.
+          if (-9000000000000000 < (Number(s1)-Number(s2)) && (Number(s1)-Number(s2)) < 9000000000000000) return String(Number(s1)-Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0
+
+          // 만약 js로 정확하게 계산할 수 없다면, 직접 계산합니다.
           if (s1.length === 0) return '-'+s2.replace(/^0+(?=.)/, ""); // 앞자리가 비어있는데 내려갔다, 0 -> -1을 하므로 '-'+더한 수 반환, 왼쪽0제거
+          if (s2.length !== 1) return true_calculator((true_calculator(s1.slice(0, -1), '-', s2.slice(0, -1)) + s1.slice(-1)), '-', s2.slice(-1)) // 앞자리끼리 계산, 뒤에 붙이고 다시 계산.
           if (parseInt(s1.slice(-1)) - parseInt(s2) < 0) { // 마지막자리끼리 뺐더니 0보다 작다 = 마지막 둘째자리에 1을 뺀다
             return (true_calculator(s1.slice(0, -1), '-', '1') +''+ (parseInt(s1.slice(-1)) - parseInt(s2) + 10)).replace(/^0+(?=.)/, "")
             //     ^앞자리에 1을 뺀 것과                             ^마지막자리끼리 뺀 수+10 (최종 1의 자리)         왼쪽0제거
