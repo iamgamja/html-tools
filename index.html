@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.35</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.36</title>
   <head>
     <style>
       @font-face {
@@ -280,6 +280,7 @@
             }, 900);
           });
         }
+        $("#myTextarea")[0].focus()
       }
 
       function shift_check() {
@@ -383,7 +384,7 @@
     </script>
   </head>
   
-  <body id="body" onkeydown="shift_check();" onload="body_load();"><br>
+  <body id="body" onkeydown="shift_check();" onload="body_load();">
     <form>
       <div id="inputs">
         <textarea id="myTextarea" placeholder="입력해보세요!" oninput="main();" onfocus="this.value = this.value;"></textarea>
