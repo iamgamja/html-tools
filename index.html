@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.34</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.35</title>
   <head>
     <style>
       @font-face {
@@ -266,7 +266,9 @@
               $("div#add_elements").empty();
             }
           } else if (m[0].startsWith("title")) {
-            $("title").text(m.slice(1));
+            $("title").text(m.slice(1).join(' '));
+          } else if (m[0].startsWith("reload")) {
+            history.go(0);
           }
             
           // animate
