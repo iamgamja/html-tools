@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.40</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.41</title>
   <head>
     <style>
       @font-face {
@@ -302,7 +302,7 @@
       function see_spoiler() {
         var e = $(event.currentTarget);
         $("#table td").filter(".md5Cell, .sha256Cell").each(function (index, item) { // hash cell에서만 반복
-          set_noe_see(item);
+          set_not_see(item);
         });
         set_see(e)
         if (e.hasClass("md5")) {
