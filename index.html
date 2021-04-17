@@ -101,8 +101,8 @@
     
     <script>
       // 전역변수 설정
-      isS = false; // 우클릭시 true: sha256, false: md5
-      shift = false; // 쉬프트 키가 연속으로 눌렸는지를 감지하기 위한 변수
+      var isS = false; // 우클릭시 true: sha256, false: md5
+      var shift = false; // 쉬프트 키가 연속으로 눌렸는지를 감지하기 위한 변수
       // 끝
       
       function body_load() {
@@ -351,7 +351,7 @@
           .attr("longHASH", sha256(value));
         set_not_see($(gksdud(`#${table_id}__`)));
       }
-
+      
       function main() {
         var m = $("#myTextarea").val() || "";
 
