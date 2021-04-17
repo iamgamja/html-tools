@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.46</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.47</title>
   <head>
     <style>
       @font-face {
         font-family: 'fontemon';
         src: url(fontemon_small.otf) format('truetype');
+      }
+      body {
+        overflow:hidden;
       }
       :not(button#command_button) {
         font-family: monospace;
@@ -125,7 +128,7 @@
         
         $("#inputs").css("height", `${Number($("#myTextarea").css("height").slice(0, -2))+6}px`) // margin, padding 길이(총 6px)만큼 추가.
                 
-        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수", "d2r", "r2d", "sin_d", "cos_d", "tan_d", "asin_d", "acos_d", "atan_d", "sin_r", "cos_r", "tan_r", "asin_r", "acos_r", "atan_r"]
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수", "h2d", "d2h", "d2r", "r2d", "sin_d", "cos_d", "tan_d", "asin_d", "acos_d", "atan_d", "sin_r", "cos_r", "tan_r", "asin_r", "acos_r", "atan_r"]
         for (let i of table_items) {
           item = gksdud(i);
           table.innerHTML += `<tr id="${item}"><td id="${item}1" onclick="click_event();">${i}</td><td id="${item}2" onclick="click_event();"></td><td id="${item}_" class="md5Cell" onmouseenter="see_spoiler();" onclick="click_event();"></td><td id="${item}__" class="sha256Cell" onmouseenter="see_spoiler();" onclick="click_event();"></td></tr>`
@@ -222,6 +225,8 @@
       function ord(s) {  return s.charCodeAt(0)  }
       function d2r(d) {  return d * Math.PI / 180  }
       function r2d(r) {  return r / Math.PI * 180  }
+      function h2d(h) {  return parseInt(String(h), 16)  }
+      function d2h(d) {  return Number(d).toString(16)  }
       
       function command_check() {
         var m = gksdud($("#myTextarea").val());
@@ -355,6 +360,8 @@
         set_table("이전수", m ? true_calculator(m, '-', '1') : '');
         set_table("현재수", m ? true_calculator(m, '+', '0') : '');
         set_table("다음수", m ? true_calculator(m, '+', '1') : '');
+        set_table("h2d", m ? h2d(m) : "");
+        set_table("d2h", m ? d2h(m) : "");
         set_table("d2r", m ? d2r(Number(m)) : "");
         set_table("r2d", m ? r2d(Number(m)) : "");
         set_table("sin_d", m ? Math.sin(d2r(Number(m))) : ""); // 입력된 값을 d로 인식, r로 변환.
