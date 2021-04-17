@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> 버전:2021-04-16 12:52 21.33
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.34</title>
   <head>
     <style>
       @font-face {
@@ -238,34 +238,37 @@
         if (m.startsWith("/")) {
           m = m.slice(1).split(' ');
 
-          if (m[0].startsWith("see")) { // see
-            if (m[1].startsWith("hide")) { // hide
+          if (m[0].startsWith("see")) {
+            if (m[1].startsWith("hide")) {
               $(m[2]).hide();
-            } else if (m[1].startsWith("show")) { // show
+            } else if (m[1].startsWith("show")) {
               $(m[2]).show();
-            } else if (m[1].startsWith("toggle")) { // toggle
+            } else if (m[1].startsWith("toggle")) {
               $(m[2]).toggle();
             }
             main();
-          } else if (m[0].startsWith("hash")) { // right click setting
+          } else if (m[0].startsWith("hash")) { // 우클릭 팝업창 hash 종류
             if (m[1].startsWith("sha")) { // sha256
               isS = true;
             } else if (m[1].startsWith("md")) { // md5
               isS = false;
-            } else if (m[1].startsWith("toggle")) { // toggle
+            } else if (m[1].startsWith("toggle")) {
               isS = !isS;
             }
-          } else if (m[0].startsWith("ele")) { // new elements
-            if (m[1].startsWith("add")) { // add
-              $("div#add_elements").append(`<${m[2]} id="${m[3].replaceAll('"', '')}">${m[4]}</${m[2]}`);
-            } else if (m[1].startsWith("css")) { // css
+          } else if (m[0].startsWith("ele")) { // elements
+            if (m[1].startsWith("add")) {
+              $("div#add_elements").append(`<${m[2]} id="${m[3].replaceAll('"', '')}">${m[4]}</${m[2]}>`);
+            } else if (m[1].startsWith("css")) {
               $(`div#add_elements ${m[2]}`).css(m[3], m[4]);
-            } else if (m[1].startsWith("del")) { // delete
+            } else if (m[1].startsWith("del")) {
               $(`div#add_elements ${m[2]}`).remove();
             } else if (m[1].startsWith("clear")) { // clear
               $("div#add_elements").empty();
             }
+          } else if (m[0].startsWith("title")) {
+            $("title").text(m.slice(1));
           }
+            
           // animate
           $("#myTextarea").animate({
             backgroundColor: '#ffff00'
