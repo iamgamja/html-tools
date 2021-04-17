@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.36</title>
+<html lang="ko"> <title>버전:2021-04-17 11:51 21.37</title>
   <head>
     <style>
       @font-face {
@@ -309,11 +309,15 @@
       function set_not_see(ele) {
         $(ele).text($(ele).attr('shortHASH'));
       }
+      function is_hash_cell() {
+        this.id.endsWith("_")
+      }
       
       function see_spoiler() {
-        set_see(event.currentTarget);
-        $("#table td").each(function (index, item) {
-          if (item.id.endsWith("_") && item !== event.currentTarget) {
+        $("#table td").filter(is_hash_cell).each(function (index, item) {
+          if (item === event.currentTarget) {
+            set_see(item);
+          } else {
             set_not_see(item);
           }
         });
@@ -327,10 +331,8 @@
       }
       
       function all_spoiler() {
-        $("#table td").each(function (index, item) {
-          if (item.id.endsWith("_")) {
-            set_not_see(item)
-          }
+        $("#table td").filter(is_hash_cell).each(function (index, item) {
+          set_not_see(item)
         });
         $(gksdud("#기본값_")).css("width", "49px");
         $(gksdud("#기본값__")).css("width", "49px");
