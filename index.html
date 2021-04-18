@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-17 11:51 21.49</title>
+<html lang="ko"> <title>버전:2021-04-18 12:10 21.50</title>
   <head>
     <style>
       @font-face {
@@ -196,9 +196,7 @@
         
         if (p === '+') { // 덧셈이다
           // 만약 js로 정확하게 계산할 수 있다면, 계산합니다.
-          // js는 -9007199254740991 ~ 9007199254740991 까지의 수를 정확하게 계산할 수 있습니다.
-          // 하지만 편의를 위해 -9000000000000000 ~ 9000000000000000 범위 내에 있을때만 js로 계산합니다.
-          if (-9000000000000000 < (Number(s1)+Number(s2)) && (Number(s1)+Number(s2)) < 9000000000000000) return String(Number(s1)+Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0
+          if (Number.isSafeInteger(Number(s1)+Number(s2))) return String(Number(s1)+Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0제거
 
           // 만약 js로 정확하게 계산할 수 없다면, 직접 계산합니다.
           if (s1.length === 0) return (s2).replace(/^0+(?=.)/, ""); // 앞자리가 비어있는데 올라갔다, 0 -> 1을 하므로 더한 수 반환, 왼쪽0제거
@@ -212,9 +210,7 @@
           }
         } else if (p === '-') { // 뺄셈이다
           // 만약 js로 정확하게 계산할 수 있다면, 계산합니다.
-          // js는 -9007199254740991 ~ 9007199254740991 까지의 수를 정확하게 계산할 수 있습니다.
-          // 하지만 편의를 위해 -9000000000000000 ~ 9000000000000000 범위 내에 있을때만 js로 계산합니다.
-          if (-9000000000000000 < (Number(s1)-Number(s2)) && (Number(s1)-Number(s2)) < 9000000000000000) return String(Number(s1)-Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0
+          if (Number.isSafeInteger(Number(s1)-Number(s2))) return String(Number(s1)-Number(s2)).replace(/^0+(?=.)/, "") // 왼쪽0제거
 
           // 만약 js로 정확하게 계산할 수 없다면, 직접 계산합니다.
           if (s1.length === 0) return '-'+s2.replace(/^0+(?=.)/, ""); // 앞자리가 비어있는데 내려갔다, 0 -> -1을 하므로 '-'+더한 수 반환, 왼쪽0제거
@@ -227,7 +223,7 @@
             //     ^앞자리는 그대로       ^뒷자리끼리만 계산                        왼쪽0제거
           }
         } else { // 지원하지 않는 기호
-          throw new Error(`지원하지 않는 기호입니다.\ns1: ${s1}\np: ${p}\ns2: ${s2}`);
+          return NaN;
         }
       }
       
