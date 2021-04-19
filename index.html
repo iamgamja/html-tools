@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko"> <title>버전:2021-04-19 12:10 21.52</title>
+<html lang="ko"> <title>버전:2021-04-19 11:20 21.54</title>
   <head>
     <style>
       @font-face {
@@ -133,7 +133,7 @@
         
         $("#inputs").css("height", `${Number($("#myTextarea").css("height").slice(0, -2))+6}px`) // margin, padding 길이(총 6px)만큼 추가.
                 
-        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수", "h2d", "d2h", "d2r", "r2d", "sin_d", "cos_d", "tan_d", "asin_d", "acos_d", "atan_d", "sin_r", "cos_r", "tan_r", "asin_r", "acos_r", "atan_r"]
+        var table_items = ["기본값", "글자수", "한영타", "영한타", "영한영", "한영한", "반대로", "첫번째", "마지막", "계산값", "폰트몬", "이전수", "현재수", "다음수", "h2d", "d2h", "d2r", "r2d", "sin_d", "cos_d", "tan_d", "asin_d", "acos_d", "atan_d", "sin_r", "cos_r", "tan_r", "asin_r", "acos_r", "atan_r", "chr", "ord"]
         for (let i of table_items) {
           item = gksdud(i);
           let string_html = "";
@@ -391,6 +391,8 @@
         set_table("asin_r", m ? Math.asin(m) : "");
         set_table("acos_r", m ?  Math.acos(m) : "");
         set_table("atan_r", m ? Math.atan(m) : "");
+        set_table("chr", m ? chr(parseInt(m)) : "");
+        set_table("ord", m ? ord(m) : "");
         
         try {
           set_table("계산값", math.evaluate(m));
